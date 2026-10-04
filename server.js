@@ -748,3 +748,5 @@ server.listen(PORT, HOST, () => {
     console.log(` Workspace Directory:    ${__dirname}`);
     console.log(`=======================================================`);
 });
+
+module.exports = server;
