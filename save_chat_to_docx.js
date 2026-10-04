@@ -44,25 +44,36 @@ function formatTimestamp(d = new Date()) {
   };
 }
 
+const { classifyChat, CATEGORY_LOAN_ASSESSMENT, CATEGORY_PROJECT_DEVELOPMENT, LOAN_CHAT_DIR, DEV_CHAT_DIR } = require('./chat_classifier');
+
 async function createChatDocx({
   topic = 'LOAN_PROPOSAL_CONSULTATION',
   userQuery = '',
   agentResponse = '',
   metadata = {},
-  outputDir = fs.existsSync('D:\\Bank_Loan_Appraisal\\MASTER_VAULT\\DATA\\000-CHAT_HISTORY')
-    ? 'D:\\Bank_Loan_Appraisal\\MASTER_VAULT\\DATA\\000-CHAT_HISTORY'
-    : 'G:\\My Drive\\Bank_Loan_Appraisal\\MASTER_VAULT\\DATA\\000-CHAT_HISTORY',
+  category = null,
+  outputDir = null,
   filename = null
 }) {
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+  // Automatically classify chat into Loan Assessment vs Project Development
+  const classification = classifyChat({
+    userQuery,
+    topic,
+    agentResponse,
+    explicitCategory: category
+  });
+
+  const finalOutputDir = outputDir || classification.targetDir;
+  if (!fs.existsSync(finalOutputDir)) {
+    fs.mkdirSync(finalOutputDir, { recursive: true });
   }
 
   const { fileStamp, displayStamp } = formatTimestamp();
   const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 50);
   const uniqueToken = Math.random().toString(36).substring(2, 6).toUpperCase();
-  const outFileName = filename || `${fileStamp}_${uniqueToken}_${safeTopic}_CHAT.docx`;
-  const fullPath = path.join(outputDir, outFileName);
+  const suffix = classification.fileSuffix;
+  const outFileName = filename || `${fileStamp}_${uniqueToken}_${safeTopic}${suffix}`;
+  const fullPath = path.join(finalOutputDir, outFileName);
 
   const doc = new Document({
     sections: [
@@ -97,10 +108,12 @@ async function createChatDocx({
             spacing: { after: 250 },
             children: [
               new TextRun({
-                text: 'CREDIT APPRAISAL & PROPOSAL CHAT LOG',
+                text: classification.isProjectDevelopment
+                  ? 'PROJECT & APPLICATION DEVELOPMENT LOG'
+                  : 'CREDIT APPRAISAL & PROPOSAL CHAT LOG',
                 bold: true,
                 size: 24,
-                color: PNB_NAVY,
+                color: classification.isProjectDevelopment ? '1B5E20' : PNB_NAVY,
                 font: 'Arial'
               })
             ]
@@ -160,6 +173,35 @@ async function createChatDocx({
                     shading: { fill: GRAY_BG, type: ShadingType.CLEAR },
                     children: [
                       new Paragraph({
+                        children: [new TextRun({ text: 'Category:', bold: true, size: 20, font: 'Arial' })]
+                      })
+                    ]
+                  }),
+                  new TableCell({
+                    width: { size: 70, type: WidthType.PERCENTAGE },
+                    children: [
+                      new Paragraph({
+                        children: [new TextRun({
+                          text: classification.isProjectDevelopment
+                            ? 'Project & Application Development'
+                            : 'Retail / MSME / Agri Loan Appraisal',
+                          bold: true,
+                          color: classification.isProjectDevelopment ? '1B5E20' : PNB_NAVY,
+                          size: 20,
+                          font: 'Arial'
+                        })]
+                      })
+                    ]
+                  })
+                ]
+              }),
+              new TableRow({
+                children: [
+                  new TableCell({
+                    width: { size: 30, type: WidthType.PERCENTAGE },
+                    shading: { fill: GRAY_BG, type: ShadingType.CLEAR },
+                    children: [
+                      new Paragraph({
                         children: [new TextRun({ text: 'Archive Vault Path:', bold: true, size: 20, font: 'Arial' })]
                       })
                     ]
@@ -168,7 +210,7 @@ async function createChatDocx({
                     width: { size: 70, type: WidthType.PERCENTAGE },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: outputDir, size: 18, color: '555555', font: 'Arial' })]
+                        children: [new TextRun({ text: String(finalOutputDir || ''), size: 18, color: '555555', font: 'Arial' })]
                       })
                     ]
                   })
@@ -322,4 +364,9 @@ if (require.main === module) {
     });
 }
 
-module.exports = { createChatDocx };
+module.exports = {
+  createChatDocx,
+  classifyChat,
+  CATEGORY_LOAN_ASSESSMENT,
+  CATEGORY_PROJECT_DEVELOPMENT
+};

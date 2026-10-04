@@ -373,6 +373,20 @@ async function appHandler(req, res) {
             });
         }
 
+        // --- Universal Master Sync Trigger ---
+        if (pathname === '/api/system/sync' && method === 'POST') {
+            try {
+                const { runUniversalSync } = require('./auto_sync_all');
+                runUniversalSync().catch(e => console.error('Sync trigger error:', e));
+                return sendJson(res, 200, {
+                    success: true,
+                    message: 'Universal Master Sync initiated across Google Drive, GitHub, Vercel & PWA!'
+                });
+            } catch (e) {
+                return sendJson(res, 500, { error: e.message });
+            }
+        }
+
         // --- Circulars List & Search ---
         if (pathname === '/api/circulars/list' && method === 'GET') {
             const metaFile = path.join(__dirname, 'circular_metadata_db.json');
@@ -410,14 +424,25 @@ async function appHandler(req, res) {
             const q = (queryParams.q || '').toLowerCase().trim();
             let files = [];
             if (fs.existsSync(historyDir)) {
-                files = fs.readdirSync(historyDir)
-                    .filter(f => f.endsWith('.docx') && !f.startsWith('~$'))
-                    .filter(f => !q || f.toLowerCase().includes(q))
-                    .map(f => {
-                        const s = fs.statSync(path.join(historyDir, f));
-                        return { name: f, size: s.size, mtime: s.mtime };
-                    })
-                    .sort((a, b) => b.mtime - a.mtime);
+                try {
+                    files = fs.readdirSync(historyDir)
+                        .filter(f => f.endsWith('.docx') && !f.startsWith('~$'))
+                        .filter(f => !q || f.toLowerCase().includes(q))
+                        .map(f => {
+                            const s = fs.statSync(path.join(historyDir, f));
+                            return { name: f, size: s.size, mtime: s.mtime };
+                        })
+                        .sort((a, b) => b.mtime - a.mtime);
+                } catch (e) {}
+            }
+            // Fallback to pre-compiled registry for cloud / Vercel execution
+            if (files.length === 0) {
+                const reg = gdrive.getVaultRegistry();
+                if (reg && reg.chatHistoryDocx) {
+                    files = reg.chatHistoryDocx
+                        .filter(f => !q || f.name.toLowerCase().includes(q))
+                        .map(f => ({ name: f.name, size: f.sizeBytes, mtime: f.modifiedAt }));
+                }
             }
             return sendJson(res, 200, { success: true, count: files.length, files });
         }
@@ -736,8 +761,9 @@ async function appHandler(req, res) {
         console.error('Server error:', err);
         sendJson(res, 500, { error: err.message || 'Internal Server Error' });
     }
-});
+}
 
+const server = http.createServer(appHandler);
 server.keepAliveTimeout = 65000;
 server.headersTimeout = 66000;
 server.maxConnections = 500;
@@ -749,8 +775,6 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (reason) => {
     console.error('Unhandled promise rejection caught safely:', reason);
 });
-
-const server = http.createServer(appHandler);
 
 if (!process.env.VERCEL) {
     server.listen(PORT, HOST, () => {

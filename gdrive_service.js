@@ -18,6 +18,18 @@ const FEEDBACK_DIR = path.join(MASTER_VAULT_DIR, 'FEEDBACK_AND_ISSUES');
 const FEEDBACK_TICKETS_DIR = path.join(FEEDBACK_DIR, 'tickets');
 const FEEDBACK_REGISTER_FILE = path.join(FEEDBACK_DIR, 'feedback_register.json');
 const BRANCHES_FILE = path.join(BASE_DIR, 'branches.json');
+const REGISTRY_FILE = path.join(BASE_DIR, 'vault_customers_registry.json');
+let vaultRegistry = null;
+
+function getVaultRegistry() {
+    if (vaultRegistry) return vaultRegistry;
+    if (fs.existsSync(REGISTRY_FILE)) {
+        try {
+            vaultRegistry = JSON.parse(fs.readFileSync(REGISTRY_FILE, 'utf8'));
+        } catch (e) {}
+    }
+    return vaultRegistry || { branches: {} };
+}
 
 // Ensure all core vault directories exist
 [MASTER_VAULT_DIR, DATA_DIR, CHAT_HISTORY_DIR, FEEDBACK_DIR, FEEDBACK_TICKETS_DIR].forEach(d => {
@@ -62,12 +74,22 @@ function getBranchList() {
             branches = JSON.parse(fs.readFileSync(BRANCHES_FILE, 'utf8'));
         } catch (e) {}
     }
+    // Also include branches from vaultRegistry
+    const reg = getVaultRegistry();
+    if (reg && reg.branches) {
+        Object.keys(reg.branches).forEach(b => {
+            if (!branches.includes(b)) branches.push(b);
+        });
+    }
     // Also include any branches present in MASTER_VAULT/DATA that might not be in branches.json
     if (fs.existsSync(DATA_DIR)) {
-        const vaultBranches = fs.readdirSync(DATA_DIR).filter(b => b !== '000-CHAT_HISTORY' && !b.startsWith('.'));
-        vaultBranches.forEach(vb => {
-            if (!branches.includes(vb)) branches.push(vb);
-        });
+        try {
+            const nonBranchDirs = ['000-CHAT_HISTORY', 'PROJECT_DEVELOPMENT_CHATS', 'STAGING_QUEUE', 'AUDIT_LOGS', 'FEEDBACK_AND_ISSUES'];
+            const vaultBranches = fs.readdirSync(DATA_DIR).filter(b => !nonBranchDirs.includes(b) && !b.startsWith('.'));
+            vaultBranches.forEach(vb => {
+                if (!branches.includes(vb)) branches.push(vb);
+            });
+        } catch (e) {}
     }
     return branches.sort();
 }
@@ -105,31 +127,52 @@ function getCustomers(branchName, segment) {
 
     searchDirs.forEach(segDir => {
         if (!fs.existsSync(segDir)) return;
-        const entries = fs.readdirSync(segDir, { withFileTypes: true });
+        try {
+            const entries = fs.readdirSync(segDir, { withFileTypes: true });
 
-        entries.forEach(ent => {
-            if (!ent.isDirectory() || ent.name.startsWith('.')) return;
-            
-            const subPath = path.join(segDir, ent.name);
-            const subEntries = fs.readdirSync(subPath);
-            const hasFiles = subEntries.some(f => !fs.statSync(path.join(subPath, f)).isDirectory());
-            
-            if (hasFiles || ent.name.includes('_DOCUMENTS')) {
-                if (!customers.includes(ent.name)) customers.push(ent.name);
-            } else {
-                subEntries.forEach(sub => {
-                    const deepPath = path.join(subPath, sub);
-                    if (fs.statSync(deepPath).isDirectory()) {
-                        const compound = `${ent.name}/${sub}`;
-                        if (!customers.includes(compound)) customers.push(compound);
+            entries.forEach(ent => {
+                if (!ent.isDirectory() || ent.name.startsWith('.')) return;
+                
+                const subPath = path.join(segDir, ent.name);
+                const subEntries = fs.readdirSync(subPath);
+                const hasFiles = subEntries.some(f => !fs.statSync(path.join(subPath, f)).isDirectory());
+                
+                if (hasFiles || ent.name.includes('_DOCUMENTS')) {
+                    if (!customers.includes(ent.name)) customers.push(ent.name);
+                } else {
+                    subEntries.forEach(sub => {
+                        const deepPath = path.join(subPath, sub);
+                        if (fs.statSync(deepPath).isDirectory()) {
+                            const compound = `${ent.name}/${sub}`;
+                            if (!customers.includes(compound)) customers.push(compound);
+                        }
+                    });
+                    if (subEntries.length === 0 && !customers.includes(ent.name)) {
+                        customers.push(ent.name);
                     }
-                });
-                if (subEntries.length === 0 && !customers.includes(ent.name)) {
-                    customers.push(ent.name);
                 }
-            }
-        });
+            });
+        } catch (e) {}
     });
+
+    // Fallback to vault registry for cloud / Vercel execution
+    if (customers.length === 0) {
+        const reg = getVaultRegistry();
+        const bData = reg.branches && (reg.branches[branchName.trim()] || reg.branches[branchName]);
+        if (bData) {
+            let canonSeg = '3. Retail';
+            if (segment.includes('Agri')) canonSeg = '1. Agri';
+            else if (segment.includes('MSME')) canonSeg = '2. MSME';
+            else if (segment.includes('Retail')) canonSeg = '3. Retail';
+
+            const segCusts = bData[canonSeg];
+            if (segCusts) {
+                Object.keys(segCusts).forEach(c => {
+                    if (!customers.includes(c)) customers.push(c);
+                });
+            }
+        }
+    }
 
     return customers;
 }
@@ -147,23 +190,46 @@ function getCustomerFiles(branchName, segment, customerName) {
     if (segment.includes('Retail')) {
         possibleDirs.push(path.join(DATA_DIR, branchName.trim(), '2. Retail', customerName.trim()));
         possibleDirs.push(path.join(DATA_DIR, branchName.trim(), 'Retail_Lending', customerName.trim()));
+        possibleDirs.push(path.join(DATA_DIR, branchName.trim(), 'Retail_Lending', 'Car_Loan', customerName.trim()));
+        possibleDirs.push(path.join(DATA_DIR, branchName.trim(), '3. Retail', 'Car_Loan', customerName.trim()));
     } else if (segment.includes('MSME')) {
         possibleDirs.push(path.join(DATA_DIR, branchName.trim(), '3. MSME', customerName.trim()));
     }
 
     let custDir = possibleDirs.find(d => fs.existsSync(d));
-    if (!custDir) return [];
+    if (custDir) {
+        try {
+            const files = fs.readdirSync(custDir).filter(f => !f.endsWith('.json') && !f.startsWith('.'));
+            if (files.length > 0) {
+                return files.map(f => {
+                    const fullPath = path.join(custDir, f);
+                    const stat = fs.statSync(fullPath);
+                    return {
+                        name: f,
+                        sizeBytes: stat.size,
+                        modifiedAt: stat.mtime
+                    };
+                });
+            }
+        } catch (e) {}
+    }
 
-    const files = fs.readdirSync(custDir).filter(f => !f.endsWith('.json') && !f.startsWith('.'));
-    return files.map(f => {
-        const fullPath = path.join(custDir, f);
-        const stat = fs.statSync(fullPath);
-        return {
-            name: f,
-            sizeBytes: stat.size,
-            modifiedAt: stat.mtime
-        };
-    });
+    // Fallback to vault registry for cloud / Vercel execution
+    const reg = getVaultRegistry();
+    const bData = reg.branches && (reg.branches[branchName.trim()] || reg.branches[branchName]);
+    if (bData) {
+        let canonSeg = '3. Retail';
+        if (segment.includes('Agri')) canonSeg = '1. Agri';
+        else if (segment.includes('MSME')) canonSeg = '2. MSME';
+        else if (segment.includes('Retail')) canonSeg = '3. Retail';
+
+        const custObj = bData[canonSeg] && (bData[canonSeg][customerName.trim()] || bData[canonSeg][customerName]);
+        if (custObj && custObj.files) {
+            return custObj.files;
+        }
+    }
+
+    return [];
 }
 
 /**
@@ -288,38 +354,54 @@ async function saveCircular({
  * List all proposals currently in Master Vault
  */
 function listMasterVaultProposals() {
-    if (!fs.existsSync(DATA_DIR)) return [];
+    let proposals = [];
+    if (fs.existsSync(DATA_DIR)) {
+        try {
+            const branches = fs.readdirSync(DATA_DIR);
+            branches.forEach(branch => {
+                if (branch === '000-CHAT_HISTORY' || branch.startsWith('.')) return;
+                const branchPath = path.join(DATA_DIR, branch);
+                if (!fs.statSync(branchPath).isDirectory()) return;
 
-    const branches = fs.readdirSync(DATA_DIR);
-    const proposals = [];
+                const segments = fs.readdirSync(branchPath);
+                segments.forEach(segment => {
+                    const segPath = path.join(branchPath, segment);
+                    if (!fs.statSync(segPath).isDirectory()) return;
 
-    branches.forEach(branch => {
-        if (branch === '000-CHAT_HISTORY' || branch.startsWith('.')) return;
-        const branchPath = path.join(DATA_DIR, branch);
-        if (!fs.statSync(branchPath).isDirectory()) return;
-
-        const segments = fs.readdirSync(branchPath);
-        segments.forEach(segment => {
-            const segPath = path.join(branchPath, segment);
-            if (!fs.statSync(segPath).isDirectory()) return;
-
-            const custDirs = fs.readdirSync(segPath);
-            custDirs.forEach(cust => {
-                const custPath = path.join(segPath, cust);
-                if (fs.statSync(custPath).isDirectory()) {
-                    const files = fs.readdirSync(custPath).filter(f => !f.endsWith('.json') && !f.endsWith('.txt'));
-                    proposals.push({
-                        branch,
-                        segment,
-                        customerName: cust.replace('_DOCUMENTS', ''),
-                        folderPath: custPath,
-                        fileCount: files.length,
-                        files
+                    const custDirs = fs.readdirSync(segPath);
+                    custDirs.forEach(cust => {
+                        const custPath = path.join(segPath, cust);
+                        if (fs.statSync(custPath).isDirectory()) {
+                            const files = fs.readdirSync(custPath).filter(f => !f.endsWith('.json') && !f.endsWith('.txt'));
+                            proposals.push({
+                                branch,
+                                segment,
+                                customerName: cust.replace('_DOCUMENTS', ''),
+                                folderPath: custPath,
+                                fileCount: files.length,
+                                files
+                            });
+                        }
                     });
-                }
+                });
             });
-        });
-    });
+        } catch (e) {}
+    }
+
+    // Fallback to vault registry for cloud / Vercel execution
+    if (proposals.length === 0) {
+        const reg = getVaultRegistry();
+        if (reg && reg.proposals && reg.proposals.length > 0) {
+            proposals = reg.proposals.map(p => ({
+                branch: p.branch,
+                segment: p.segment,
+                customerName: p.displayName || p.customerName,
+                folderPath: `${p.branch}/${p.segment}/${p.customerName}`,
+                fileCount: p.filesCount || (p.files ? p.files.length : 0),
+                files: (p.files || []).map(f => typeof f === 'string' ? f : f.name)
+            }));
+        }
+    }
 
     return proposals;
 }
@@ -433,6 +515,7 @@ module.exports = {
     getSegmentList,
     getCustomers,
     getCustomerFiles,
+    getVaultRegistry,
     saveCustomerDocument,
     saveCircular,
     listMasterVaultProposals,

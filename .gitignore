@@ -17,6 +17,8 @@ dumped_cookies.db
 # Sensitive files
 .env
 service_account.json
+github_token.txt
+PUSH_CODE_TO_GITHUB.bat
 
 # OS files
 .DS_Store

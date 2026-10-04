@@ -830,6 +830,10 @@
                 <span>📲</span>
                 <span id="btnInstallText">Install App</span>
             </button>
+            <button id="btnSyncCloud" onclick="triggerUniversalSync()" class="copy-pill-btn" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; color: #93c5fd; font-size: 11px; padding: 4px 9px;" title="Sync Google Drive, GitHub & Vercel Cloud">
+                <span>🔄</span>
+                <span id="btnSyncText">Sync</span>
+            </button>
             <button onclick="switchTab('tab-feedback')" class="copy-pill-btn" style="background: rgba(197, 155, 39, 0.2); border: 1px solid var(--pnb-gold); color: var(--pnb-gold); font-size: 11px; padding: 4px 9px;">
                 <span>📢</span>
                 <span>Feedback</span>
@@ -1369,6 +1373,24 @@
             alert(`✅ ${modeText} Copied!\n\n${link}\n\nIs link ko apne mobile browser me kholein aur "Add to Home Screen" karein.\n(Tip: Same Wi-Fi par "BHARAT_SINGH.local" kabhi expire nahi hota!)`);
         }
 
+        async function triggerUniversalSync() {
+            const btn = document.getElementById('btnSyncCloud');
+            const text = document.getElementById('btnSyncText');
+            if (text) text.textContent = 'Syncing... ⏳';
+            if (btn) btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/system/sync', { method: 'POST' });
+                const data = await res.json();
+                alert('✅ Universal Master Sync Shuru Hua!\n\nGoogle Drive, GitHub, Vercel aur Mobile Application ke beech code aur catalog synchronize ho rahe hain.');
+            } catch (e) {
+                alert('⚠️ Sync shuru nahi ho saka: ' + e.message);
+            } finally {
+                if (text) text.textContent = 'Sync';
+                if (btn) btn.disabled = false;
+            }
+        }
+
         // Load Branches and Segments
         async function loadBranchesAndSegments() {
             try {
@@ -1759,11 +1781,39 @@
                 if (data.docxFilename) {
                     html += `<br><a href="/api/chat/download?file=${encodeURIComponent(data.docxFilename)}" class="docx-download-chip" download>📥 Download DOCX: ${escapeHtml(data.docxFilename)}</a>`;
                 }
+
+                // Render 3 Interactive Circular Suggestion Chips
+                if (data.suggestions && data.suggestions.length) {
+                    html += `
+                        <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(197, 155, 39, 0.4);">
+                            <div style="font-size: 11px; color: var(--pnb-gold); font-weight: 700; margin-bottom: 7px; display: flex; align-items: center; gap: 5px;">
+                                <span>💡</span>
+                                <span>Related Circular Queries (Click to ask instantly):</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                ${data.suggestions.map(s => `
+                                    <button type="button" onclick="askSuggestedQuery('${escapeHtml(s)}')" style="text-align: left; background: rgba(197, 155, 39, 0.12); border: 1px solid rgba(197, 155, 39, 0.35); color: #f3d078; padding: 7px 11px; border-radius: 6px; font-size: 11.5px; cursor: pointer; transition: all 0.15s ease; line-height: 1.3;">
+                                        🔹 ${escapeHtml(s)}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
                 aiBubble.innerHTML = html;
             } catch (err) {
                 aiBubble.innerHTML = `<span style="color: #ef4444;">Error: ${err.message}</span>`;
             }
             feed.scrollTop = feed.scrollHeight;
+        }
+
+        function askSuggestedQuery(text) {
+            const input = document.getElementById('chatInput');
+            if (input) {
+                input.value = text;
+                sendChat();
+            }
         }
 
         // DOCX History State & Search Handling
