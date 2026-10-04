@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Easy_Bank_Appraisal - Autonomous Credit Portal</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#060911">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Easy_Appraisal">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pnb-maroon: #7b0000;
+            --pnb-maroon-dark: #520000;
+            --pnb-maroon-light: #990000;
+            --pnb-navy: #001f54;
+            --pnb-gold: #c59b27;
+            --pnb-gold-light: #f3d078;
+            --bg-dark: #0a0e17;
+            --bg-card: rgba(18, 24, 38, 0.94);
+            --border-glass: rgba(255, 255, 255, 0.09);
+            --border-focus: #c59b27;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --shadow-elevation: 0 10px 25px -8px rgba(0, 0, 0, 0.5);
+            --bottom-nav-height: 60px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        body {
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(123, 0, 0, 0.20) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(0, 31, 84, 0.25) 0%, transparent 50%);
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 1. Ultra-Thin Top Strip: Designed by Bharat Singh */
+        .designer-top-strip {
+            background: #060911;
+            color: #8da2bb;
+            font-size: 9.5px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 2.5px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1.2;
+            font-weight: 500;
+            width: 100%;
+            z-index: 1001;
+        }
+        .designer-top-strip strong {
+            color: var(--pnb-gold-light);
+            font-weight: 600;
+        }
+
+        /* 2. Top Header Bar */
+        header {
+            background: rgba(14, 19, 31, 0.97);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 52px;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .app-logo-badge {
+            background: linear-gradient(135deg, var(--pnb-navy), #0a3d91);
+            color: var(--pnb-gold-light);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            padding: 5px 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(197, 155, 39, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 31, 84, 0.5);
+            flex-shrink: 0;
+        }
+
+        .brand-meta {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-meta h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .brand-meta p {
+            font-size: 10px;
+            color: var(--pnb-gold-light);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .live-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--success);
+            box-shadow: 0 0 6px var(--success);
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* 3. Direct Mobile Link Bar */
+        .mobile-url-strip {
+            background: linear-gradient(90deg, rgba(123, 0, 0, 0.95), rgba(0, 31, 84, 0.95));
+            border-bottom: 1px solid rgba(197, 155, 39, 0.5);
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .mobile-url-strip a {
+            color: var(--pnb-gold-light);
+            font-weight: 600;
+            text-decoration: underline;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .copy-pill-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--pnb-gold);
+            color: #fff;
+            padding: 4px 9px;
+            border-radius: 12px;
+            font-size: 10.5px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .copy-pill-btn:hover {
+            background: rgba(197, 155, 39, 0.25);
+        }
+
+        /* 4. App Container & Layout */
+        .app-container {
+            flex: 1;
+            display: flex;
+            max-width: 1350px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 14px;
+            gap: 18px;
+            margin-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px) + 30px);
+        }
+
+        /* 5. Desktop Sidebar Navigation */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: calc(100vh - 125px);
+            position: sticky;
+            top: 75px;
+            backdrop-filter: blur(12px);
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(123, 0, 0, 0.45), rgba(0, 31, 84, 0.35));
+            border: 1px solid rgba(197, 155, 39, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 6. Workspace Panels */
+        .content-workspace {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .panel-section {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .panel-section.active {
+            display: flex;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            box-shadow: var(--shadow-elevation);
+            backdrop-filter: blur(12px);
+            width: 100%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 10px;
+            gap: 8px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14.5px;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+            min-width: 0;
+        }
+
+        .badge-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            background: rgba(197, 155, 39, 0.15);
+            color: var(--pnb-gold);
+            border: 1px solid rgba(197, 155, 39, 0.3);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* 7. Chat Styles */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 190px);
+            min-height: 440px;
+        }
+
+        .chat-feed {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 4px;
+            margin-bottom: 12px;
+        }
+
+        .chat-bubble {
+            max-width: 88%;
+            padding: 12px 15px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--pnb-maroon), #4a0000);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+            border: 1px solid rgba(197, 155, 39, 0.35);
+        }
+
+        .chat-bubble.ai {
+            align-self: flex-start;
+            background: rgba(10, 14, 23, 0.85);
+            border: 1px solid var(--border-glass);
+            color: #e2e8f0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-bubble.ai h2, .chat-bubble.ai h3 {
+            color: var(--pnb-gold-light);
+            margin: 8px 0 4px 0;
+            font-size: 14px;
+        }
+
+        .chat-bubble.ai ul {
+            padding-left: 18px;
+            margin: 6px 0;
+        }
+
+        .docx-download-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: 11.5px;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        /* Chat Input Bar */
+        .chat-input-bar {
+            display: flex;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-glass);
+            align-items: center;
+            width: 100%;
+        }
+
+        .chat-input-bar input {
+            flex: 1;
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 11px 14px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            height: 44px;
+            min-width: 0;
+        }
+
+        .chat-input-bar input:focus {
+            border-color: var(--pnb-gold);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--pnb-maroon), var(--pnb-maroon-dark));
+            border: 1px solid var(--pnb-gold);
+            color: #fff;
+            padding: 0 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 13px;
+            height: 44px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* 8. Form Inputs & Grids */
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 14px;
+            width: 100%;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .form-group select, .form-group input, .form-group textarea {
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group select, .form-group input {
+            height: 42px;
+        }
+
+        .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--pnb-gold);
+        }
+
+        .primary-action-btn {
+            background: linear-gradient(135deg, var(--pnb-maroon), var(--pnb-maroon-dark));
+            border: 1px solid var(--pnb-gold);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 13.5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(123, 0, 0, 0.4);
+            height: 46px;
+            transition: all 0.2s ease;
+        }
+        .primary-action-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* 9. Metrics Row (Dynamic Grid) */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+            width: 100%;
+        }
+
+        .metric-box {
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .metric-box .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .metric-box .value {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            color: var(--pnb-gold-light);
+            word-break: break-word;
+        }
+
+        /* 10. Dropzone */
+        .dropzone {
+            border: 2px dashed rgba(197, 155, 39, 0.4);
+            background: rgba(10, 14, 23, 0.45);
+            border-radius: var(--radius-md);
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 14px;
+            transition: background 0.2s ease;
+            width: 100%;
+        }
+        .dropzone:hover {
+            background: rgba(10, 14, 23, 0.65);
+            border-color: var(--pnb-gold);
+        }
+
+        .dropzone .icon {
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+
+        /* 11. Letter Box */
+        .letter-preview-box {
+            background: #ffffff;
+            color: #0f172a;
+            font-family: 'Inter', monospace;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            border: 1px solid #cbd5e1;
+            max-height: 350px;
+            overflow-y: auto;
+            word-break: break-word;
+            width: 100%;
+        }
+
+        /* 12. Scheme Quick Pills */
+        .scheme-pills-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-top: 6px;
+            scrollbar-width: none;
+            width: 100%;
+        }
+        .scheme-pills-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scheme-pill {
+            background: rgba(10, 14, 23, 0.8);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            padding: 5px 10px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+        .scheme-pill:hover, .scheme-pill.active {
+            border-color: var(--pnb-gold);
+            color: var(--pnb-gold-light);
+            background: rgba(197, 155, 39, 0.15);
+        }
+
+        /* 13. Mic Button & Pulse */
+        .mic-btn {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #f87171;
+            padding: 6px 11px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .mic-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+        }
+        .mic-btn.recording {
+            background: #ef4444;
+            color: #fff;
+            border-color: #fca5a5;
+            animation: micPulse 1.2s infinite;
+        }
+        @keyframes micPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
+
+        /* 14. Document Item Rows */
+        .doc-item-row {
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 9px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        /* 15. Fixed Mobile Bottom Navigation Bar (4 Exact Aligned Tabs: 25% each) */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(12, 17, 28, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            z-index: 9999;
+            height: var(--bottom-nav-height);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            align-items: stretch;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .mobile-tab-item {
+            flex: 1;
+            max-width: 25%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 10.5px;
+            font-weight: 600;
+            cursor: pointer;
+            line-height: 1.1;
+            padding: 4px 2px;
+            text-align: center;
+            user-select: none;
+            transition: color 0.15s ease;
+        }
+
+        .mobile-tab-item .tab-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        .mobile-tab-item .tab-label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 78px;
+            font-size: 10px;
+        }
+
+        .mobile-tab-item.active {
+            color: var(--pnb-gold);
+        }
+
+        .mobile-tab-item.active .tab-icon {
+            transform: scale(1.1);
+        }
+
+        /* 16. Media Queries for Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none;
+            }
+            .mobile-bottom-nav {
+                display: flex;
+            }
+            .app-container {
+                padding: 10px 8px;
+                gap: 12px;
+                margin-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px) + 32px);
+            }
+            .card {
+                padding: 14px 12px;
+            }
+            .chat-container {
+                height: calc(100dvh - 215px);
+                min-height: 380px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 6px 10px;
+                min-height: 48px;
+            }
+            .live-tag-text {
+                display: none; /* Hide long tag text on phone, keep pulse dot */
+            }
+            .live-tag {
+                padding: 4px 6px;
+            }
+            .brand-meta h1 {
+                font-size: 13.5px;
+            }
+            .brand-meta p {
+                font-size: 9px;
+            }
+            .app-logo-badge {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            .mobile-url-strip {
+                padding: 4px 10px;
+                font-size: 10.5px;
+            }
+            .mobile-url-strip a {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ultra-Thin Header Strip: Designed by Bharat Singh -->
+    <div class="designer-top-strip">
+        <span>Designed by <strong>Bharat Singh</strong> | Autonomous Banking Intelligence</span>
+    </div>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="header-brand">
+            <div class="app-logo-badge">⚡ EBA</div>
+            <div class="brand-meta">
+                <h1>Easy_Bank_Appraisal</h1>
+                <p>Autonomous Credit Appraisal Engine</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="live-tag" title="Multi-User High-Concurrency Engine v2.4 Active">
+                <span class="live-dot"></span>
+                <span class="live-tag-text">MULTI-USER</span>
+            </div>
+            <button onclick="switchTab('tab-feedback')" class="copy-pill-btn" style="background: rgba(197, 155, 39, 0.2); border: 1px solid var(--pnb-gold); color: var(--pnb-gold); font-size: 11px; padding: 4px 9px;">
+                <span>📢</span>
+                <span>Feedback</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Direct Mobile & Local Link Strip -->
+    <div class="mobile-url-strip" id="networkLinkStrip">
+        <div style="display: flex; align-items: center; gap: 6px; min-width: 0; flex: 1;">
+            <span style="font-size: 13px;">📱</span>
+            <span id="linkTypeBadge" style="background: rgba(197, 155, 39, 0.2); border: 1px solid var(--pnb-gold); color: var(--pnb-gold-light); font-size: 9.5px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">LIVE LINK</span>
+            <a id="mobilePublicLinkAnchor" href="#" target="_blank" style="color: #93c5fd; text-decoration: underline; font-weight: 600;">Detecting active portal link... ⏳</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
+            <button class="copy-pill-btn" id="btnToggleLink" onclick="toggleLinkMode()" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2);" title="Switch between Global 4G/5G and Local Wi-Fi link">
+                🔄 Wi-Fi Link
+            </button>
+            <button class="copy-pill-btn" onclick="copyDirectMobileLink()">📋 Copy</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Desktop Sidebar Navigation (4 Clean Unified Tabs) -->
+        <nav class="sidebar" id="desktopNav">
+            <button class="nav-btn active" onclick="switchTab('tab-ai-chat')">
+                <span style="font-size: 18px;">💬</span>
+                <span>AI Circular Chat</span>
+            </button>
+            <button class="nav-btn" onclick="switchTab('tab-vault-appraisal')">
+                <span style="font-size: 18px;">🏛️</span>
+                <span>Vault & Appraisal</span>
+            </button>
+            <button class="nav-btn" onclick="switchTab('tab-docx-vault')">
+                <span style="font-size: 18px;">📂</span>
+                <span>DOCX Chat History</span>
+            </button>
+            <button class="nav-btn" onclick="switchTab('tab-feedback')">
+                <span style="font-size: 18px;">📝</span>
+                <span>Feedback & Issues</span>
+            </button>
+        </nav>
+
+        <!-- Main Workspace Panels -->
+        <main class="content-workspace">
+
+            <!-- TAB 1: AI CIRCULAR ASSISTANT & CHAT -->
+            <section id="tab-ai-chat" class="panel-section active">
+                <div class="card chat-container">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>💬 AI Bank Circular Assistant</span>
+                        </div>
+                        <span class="badge-pill">195+ Master Circulars</span>
+                    </div>
+
+                    <div class="chat-feed" id="chatFeed">
+                        <div class="chat-bubble ai">
+                            <strong>Namaste! Main Easy_Bank_Appraisal Autonomous Assistant hoon.</strong><br>
+                            Aapko kisi circular ko select karne ki zaroorat nahi hai. Seedha apna sawaal (Car Loan, KCC, KSY Agri, MSME Sampatti LAP, Prime Plus, Scale 4 benefits, Home Loan, CIBIL, CARDEALM, JRC, Takeover) likhein.<br>
+                            <em>System saare circulars se accurate reference lekar uttar dega aur DOCX apne aap G-Drive me save ho jayega.</em>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-bar">
+                        <input type="text" id="chatInput" placeholder="Apna sawaal ya loan query likhein..." onkeydown="if(event.key==='Enter') sendChat()">
+                        <button class="send-btn" onclick="sendChat()" id="sendBtn">Bhejo 🚀</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: MERGED BRANCH MASTER VAULT & AUTONOMOUS APPRAISAL -->
+            <section id="tab-vault-appraisal" class="panel-section">
+                <!-- PART A: MASTER VAULT & DOCUMENT REPOSITORY -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>🏛️ Master Vault & Documents</span>
+                        </div>
+                        <span class="badge-pill">Auto Folder Sync</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>1. Branch Name (शाखा):</label>
+                            <select id="vaultBranchSelect" onchange="onVaultBranchChange()"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>2. Loan Segment (सेगमेंट):</label>
+                            <select id="vaultSegmentSelect" onchange="onVaultSegmentChange()"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>3. Customer Name (ग्राहक फ़ोल्डर):</label>
+                            <select id="vaultCustomerSelect" onchange="onVaultCustomerSelectChange()"></select>
+                        </div>
+                        <div class="form-group" id="vaultNewCustomerInputGroup" style="display: none;">
+                            <label>Naye Customer Ka Naam Darj Karein:</label>
+                            <input type="text" id="vaultNewCustomerName" placeholder="Ex: Rajesh_Sharma">
+                        </div>
+                    </div>
+
+                    <!-- Upload Dropzone -->
+                    <div class="dropzone" onclick="document.getElementById('vaultFileInput').click()">
+                        <div class="icon">📁</div>
+                        <h4 style="color: #fff; font-size: 13.5px; margin-bottom: 4px;">Tap to Upload Documents (Camera / Files)</h4>
+                        <p style="font-size: 11px; color: var(--text-muted);">PDF, JPG, PNG (PAN, Aadhaar, ITR, Quotation, Bank Statement, Khasra, Valuation)</p>
+                        <input type="file" id="vaultFileInput" style="display: none;" multiple onchange="handleVaultUpload(this.files)">
+                    </div>
+
+                    <div id="vaultUploadStatus" style="display: none; padding: 10px; background: rgba(16, 185, 129, 0.12); border-radius: var(--radius-sm); border: 1px solid var(--success); font-size: 12px; color: #34d399; margin-bottom: 14px;"></div>
+
+                    <!-- Uploaded Documents with Clickable Hyperlinks -->
+                    <div class="card-header" style="margin-top: 14px;">
+                        <div class="card-title" style="font-size: 13.5px;">
+                            <span>📂 Uploaded Documents in Selected Folder</span>
+                        </div>
+                        <span class="badge-pill" id="vaultDocCountBadge">0 Files</span>
+                    </div>
+                    <div id="vaultCustomerFilesList" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                </div>
+
+                <!-- PART B: COMMAND-DRIVEN AUTONOMOUS LOAN APPRAISAL -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>⚖️ Autonomous Loan Appraisal & Defect Scrutiny</span>
+                        </div>
+                        <span class="badge-pill">Scheme Dynamic</span>
+                    </div>
+
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Ooper select kiye gaye customer ke documents ke aadhar par circular guidelines se instant credit appraisal karein.
+                    </p>
+
+                    <!-- Available Documents Badges -->
+                    <div style="background: rgba(10, 14, 23, 0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 14px; font-size: 11.5px;">
+                        <span style="color: var(--text-muted);">Active Folder Documents:</span>
+                        <div id="apprFilesBadges" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;"></div>
+                    </div>
+
+                    <!-- Command Query Box & Mic Bar (Clean Stacked Layout) -->
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label style="font-size: 12px; font-weight: 600; color: var(--pnb-gold-light); margin-bottom: 6px;">
+                            ⚡ Appraisal Command / Scheme Instruction:
+                        </label>
+                        <textarea id="apprCommandInput" rows="2" placeholder="Ex: Car loan ka assessment karo, ya KCC loan ka appraisal karo, ya MSME Sampatti LAP limit evaluate karo..." style="resize: vertical;"></textarea>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; flex-wrap: wrap; gap: 6px;">
+                            <button type="button" class="mic-btn" id="apprMicBtn" onclick="toggleAppraisalVoiceMic()" title="Mic se bolkar query likhein">
+                                🎙️ <span>Bolkar Likhein (Mic)</span>
+                            </button>
+                            <span id="apprMicStatus" style="display: none; font-size: 11px; color: #f87171; font-weight: 600;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Scheme Shortcut Pills -->
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 5px;">⚡ Quick Scheme Shortcuts (Click to set):</div>
+                        <div class="scheme-pills-row">
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('Car loan ka assessment aur eligibility check karo as per RABD circulars')">🚗 Car Loan</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('KCC / Kisan Credit Card scheme ka appraisal aur scale of finance evaluate karo')">🌾 KCC Loan</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('KSY Kisan Samriddhi Yojana tractor aur farm mechanization appraisal karo')">🚜 KSY Agri</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('MSME Sampatti Scheme (LAP) LTV ratio aur limit assessment karo as per Circular 77/2026')">🏢 MSME Sampatti (LAP)</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('MSME Prime Plus working capital aur term loan appraisal karo as per Circular 79/2026')">💼 MSME Prime Plus</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('Home Loan assessment, LTV ratio aur festive rate eligibility check karo')">🏠 Home Loan</button>
+                            <button type="button" class="scheme-pill" onclick="setAppraisalCommand('Personal Loan assessment aur 20 times net salary ceiling evaluate karo')">💳 Personal Loan</button>
+                        </div>
+                    </div>
+
+                    <button class="primary-action-btn" onclick="runAutonomousAppraisal()">
+                        <span>🔍 Run Scheme-Specific Loan Appraisal & Defect Scrutiny</span>
+                    </button>
+                </div>
+
+                <!-- Appraisal Results Output Card -->
+                <div class="card" id="appraisalResultCard" style="display: none;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>📊 Appraisal Findings & Risk Analysis</span>
+                        </div>
+                        <div id="docxResultBadge"></div>
+                    </div>
+
+                    <div class="metrics-row" id="appraisalMetrics"></div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-sm); padding: 12px;">
+                            <h4 style="color: #34d399; margin-bottom: 6px; font-size: 13px;">✅ Positive Points (मजबूत पक्ष):</h4>
+                            <ul id="positiveList" style="padding-left: 18px; font-size: 12px; line-height: 1.55;"></ul>
+                        </div>
+                        <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: var(--radius-sm); padding: 12px;">
+                            <h4 style="color: #f87171; margin-bottom: 6px; font-size: 13px;">⚠️ Deficiencies / Negative Points (कमियां):</h4>
+                            <ul id="negativeList" style="padding-left: 18px; font-size: 12px; line-height: 1.55;"></ul>
+                        </div>
+                    </div>
+
+                    <div class="card-header" style="margin-top: 6px;">
+                        <div class="card-title" style="font-size: 13.5px;">
+                            <span>✉️ Official Letter to Branch Manager</span>
+                        </div>
+                        <button class="copy-pill-btn" onclick="copyBmLetter()">📋 Copy Letter</button>
+                    </div>
+                    <div class="letter-preview-box" id="bmLetterBox"></div>
+                </div>
+            </section>
+
+            <!-- TAB 3: DOCX CHAT HISTORY ARCHIVE -->
+            <section id="tab-docx-vault" class="panel-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>📂 000-CHAT_HISTORY DOCX Vault</span>
+                        </div>
+                        <button class="copy-pill-btn" onclick="loadDocxHistory()">🔄 Refresh</button>
+                    </div>
+
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Sabhi queries, appraisals aur letters formatted .docx format me Google Drive ke <code>MASTER_VAULT/DATA/000-CHAT_HISTORY/</code> me surakshit hain:
+                    </p>
+
+                    <!-- SEARCH & FILTER BAR -->
+                    <div style="margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                            <span style="position: absolute; left: 12px; font-size: 13px; color: var(--text-muted); pointer-events: none;">🔍</span>
+                            <input type="text" id="docxSearchInput" placeholder="Customer name ya keyword search karein (e.g. Badal, KCC, Car, MSME)..."
+                                style="width: 100%; background: rgba(10, 14, 23, 0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 10px 36px 10px 34px; color: #fff; font-size: 12.5px; transition: border-color 0.2s;"
+                                onfocus="this.style.borderColor='var(--pnb-gold)'" onblur="this.style.borderColor='var(--border-glass)'"
+                                oninput="filterDocxHistory()">
+                            <button id="docxSearchClearBtn" onclick="clearDocxSearch()" style="display: none; position: absolute; right: 10px; background: transparent; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; padding: 4px;">✖</button>
+                        </div>
+
+                        <!-- Quick Filter Chips -->
+                        <div class="scheme-pills-row">
+                            <button class="copy-pill-btn active-chip" id="chip-all" onclick="applyDocxFilter('', this)" style="border-color: var(--pnb-gold); color: var(--pnb-gold);">All</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilter('CAR', this)">🚗 Car Loan</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilter('KCC', this)">🌾 KCC</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilter('MSME', this)">🏢 MSME</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilter('APPRAISAL', this)">⚖️ Appraisal</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilter('CHAT', this)">💬 Chat</button>
+                            <button class="copy-pill-btn" onclick="applyDocxFilterToday(this)">📅 Today</button>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-muted); padding: 0 2px;">
+                            <span id="docxSearchStats">Loading files...</span>
+                            <span>Sorted: Newest First</span>
+                        </div>
+                    </div>
+
+                    <div id="docxHistoryList" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                </div>
+            </section>
+
+            <!-- TAB 4: FEEDBACK & ISSUE RESOLUTION DESK -->
+            <section id="tab-feedback" class="panel-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>📝 Portal Feedback & Issue Desk</span>
+                        </div>
+                        <span class="badge-pill" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">
+                            Multi-User Support
+                        </span>
+                    </div>
+
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">
+                        Portal me koi samasya aa rahi hai, speed dheemi lag rahi hai, ya kisi circular ka galat interpretation hua hai? Apna feedback ya issue yahan submit karein.
+                    </p>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>1. Officer / Staff Name & PF No:</label>
+                            <input type="text" id="fbStaffName" placeholder="Ex: Ramesh Sharma (PF 12345)">
+                        </div>
+                        <div class="form-group">
+                            <label>2. Branch / Office (शाखा):</label>
+                            <select id="fbBranchSelect"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>3. Issue Category (समस्या का प्रकार):</label>
+                            <select id="fbCategory">
+                                <option value="🐞 System Error / Bug">🐞 System Error / Bug (Kaam nahi kar raha)</option>
+                                <option value="⚡ Slow Response / Late Prompt">⚡ Slow Response / Late Prompt (Dheema chal raha hai)</option>
+                                <option value="📄 Circular Reference / Interpretation">📄 Circular Reference / Wrong Policy Interpretation</option>
+                                <option value="🗄️ Master Vault / Upload Issue">🗄️ Master Vault / Document Upload Issue</option>
+                                <option value="⚖️ Loan Appraisal Issue">⚖️ Loan Appraisal / Eligibility Calculation Issue</option>
+                                <option value="📱 Mobile Display / UI Alignment">📱 Mobile Display / UI Alignment Issue</option>
+                                <option value="💡 Feature Request / Suggestion">💡 Feature Request / Suggestion (Naya Sujhav)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>4. Portal Section (कहाँ समस्या आई?):</label>
+                            <select id="fbScreen">
+                                <option value="AI Circular Chat">💬 AI Circular Chat</option>
+                                <option value="Vault & Appraisal">🏛️ Vault & Appraisal</option>
+                                <option value="DOCX Chat History">📂 DOCX Chat History</option>
+                                <option value="General Portal">🌐 General / Overall Portal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>5. Severity Level (प्राथमिकता):</label>
+                            <select id="fbSeverity">
+                                <option value="Normal">🟢 Normal (Samanya feedback / sujhav)</option>
+                                <option value="Moderate">🟡 Moderate (Samasya aayi par kaam chal raha hai)</option>
+                                <option value="Urgent">🔴 Urgent / Critical (Kaam ruka hua hai - urgent proposal)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 8px;">
+                        <label>6. Detailed Issue Description / Feedback (विस्तार से बताएं):</label>
+                        <textarea id="fbMessage" rows="3" placeholder="Kya issue aaya? Error message kya dikha? Ya aap kya sudhar chahte hain..." style="width: 100%; background: rgba(10, 14, 23, 0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 10px; color: #fff; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+
+                    <div id="fbDiagnosticsSummary" style="font-size: 11px; color: var(--text-muted); background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px dashed var(--border-glass); margin: 10px 0;">
+                        Auto Diagnostics: <span id="fbDiagText">Detecting device & environment...</span>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap;">
+                        <button class="send-btn" style="flex: 1; min-width: 180px;" onclick="submitFeedback()">
+                            🚀 Submit Feedback & Generate Ticket
+                        </button>
+                        <button class="copy-pill-btn" onclick="loadFeedbackHistory()" style="padding: 11px 16px;">
+                            🔄 Refresh Tickets
+                        </button>
+                    </div>
+
+                    <div id="fbAlertBox" style="display: none; margin-top: 14px; padding: 12px; border-radius: var(--radius-sm); font-size: 12.5px;"></div>
+
+                    <!-- RECENT TICKETS & RESOLUTION STATUS -->
+                    <div class="card-header" style="margin-top: 20px;">
+                        <div class="card-title" style="font-size: 13.5px;">
+                            <span>📋 Recent Submitted Feedback & Resolution Status</span>
+                        </div>
+                        <span class="badge-pill" id="fbTicketCountBadge">0 Tickets</span>
+                    </div>
+
+                    <div id="fbTicketsList" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+                        <em>Loading tickets...</em>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Fixed Mobile Bottom Navigation Bar (4 Exact Aligned Tabs: 25% each) -->
+    <div class="mobile-bottom-nav">
+        <button class="mobile-tab-item active" onclick="switchTab('tab-ai-chat')">
+            <span class="tab-icon">💬</span>
+            <span class="tab-label">AI Chat</span>
+        </button>
+        <button class="mobile-tab-item" onclick="switchTab('tab-vault-appraisal')">
+            <span class="tab-icon">🏛️</span>
+            <span class="tab-label">Vault & Appr</span>
+        </button>
+        <button class="mobile-tab-item" onclick="switchTab('tab-docx-vault')">
+            <span class="tab-icon">📂</span>
+            <span class="tab-label">DOCX</span>
+        </button>
+        <button class="mobile-tab-item" onclick="switchTab('tab-feedback')">
+            <span class="tab-icon">📝</span>
+            <span class="tab-label">Feedback</span>
+        </button>
+    </div>
+
+    <script>
+        // State
+        let allBranches = [];
+        let allSegments = [];
+        let recognition = null;
+        let isRecording = false;
+
+        // Tab Switching for 4 Clean Tabs
+        function switchTab(tabId) {
+            document.querySelectorAll('.panel-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.mobile-tab-item').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            // Desktop Nav
+            const dBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+            if (dBtn) dBtn.classList.add('active');
+
+            // Mobile Nav
+            const mBtn = Array.from(document.querySelectorAll('.mobile-tab-item')).find(b => b.getAttribute('onclick')?.includes(tabId));
+            if (mBtn) mBtn.classList.add('active');
+
+            if (tabId === 'tab-vault-appraisal') {
+                updateVaultCustomers();
+            }
+            if (tabId === 'tab-docx-vault') {
+                loadDocxHistory();
+            }
+            if (tabId === 'tab-feedback') {
+                updateDiagnosticsDisplay();
+                loadFeedbackHistory();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            await fetchPublicUrl();
+            await loadBranchesAndSegments();
+        });
+
+        let networkUrls = {
+            publicUrl: null,
+            wifiUrl: null,
+            mDnsUrl: null,
+            localUrl: 'http://localhost:8080/'
+        };
+        let currentLinkMode = 'global'; // 'global' or 'wifi'
+
+        async function fetchPublicUrl() {
+            try {
+                const res = await fetch('/api/public-url');
+                const data = await res.json();
+                networkUrls = data;
+                updateLinkDisplay();
+            } catch (e) {
+                networkUrls.localUrl = window.location.origin + '/';
+                updateLinkDisplay();
+            }
+        }
+
+        function updateLinkDisplay() {
+            const a = document.getElementById('mobilePublicLinkAnchor');
+            const badge = document.getElementById('linkTypeBadge');
+            const toggleBtn = document.getElementById('btnToggleLink');
+            if (!a) return;
+
+            if (currentLinkMode === 'global') {
+                const activeUrl = networkUrls.publicUrl || networkUrls.mDnsUrl || networkUrls.wifiUrl || window.location.href;
+                a.href = activeUrl;
+                a.textContent = activeUrl;
+                if (badge) {
+                    badge.textContent = networkUrls.publicUrl ? '4G/5G LIVE' : 'LOCAL LIVE';
+                    badge.style.background = 'rgba(16, 185, 129, 0.2)';
+                    badge.style.borderColor = '#10b981';
+                    badge.style.color = '#34d399';
+                }
+                if (toggleBtn) {
+                    toggleBtn.textContent = '📶 Show Wi-Fi';
+                }
+            } else {
+                const activeUrl = networkUrls.mDnsUrl || networkUrls.wifiUrl || 'http://BHARAT_SINGH.local:8080/';
+                a.href = activeUrl;
+                a.textContent = activeUrl;
+                if (badge) {
+                    badge.textContent = 'WI-FI PERMANENT';
+                    badge.style.background = 'rgba(59, 130, 246, 0.2)';
+                    badge.style.borderColor = '#3b82f6';
+                    badge.style.color = '#93c5fd';
+                }
+                if (toggleBtn) {
+                    toggleBtn.textContent = '🌐 Show 4G/5G';
+                }
+            }
+        }
+
+        function toggleLinkMode() {
+            currentLinkMode = currentLinkMode === 'global' ? 'wifi' : 'global';
+            updateLinkDisplay();
+        }
+
+        function copyDirectMobileLink() {
+            const a = document.getElementById('mobilePublicLinkAnchor');
+            const link = a ? a.href : window.location.href;
+            navigator.clipboard.writeText(link);
+            const modeText = currentLinkMode === 'global' ? 'Global 4G/5G Link' : 'Permanent Local Wi-Fi Link';
+            alert(`✅ ${modeText} Copied!\n\n${link}\n\nIs link ko apne mobile browser me kholein aur "Add to Home Screen" karein.\n(Tip: Same Wi-Fi par "BHARAT_SINGH.local" kabhi expire nahi hota!)`);
+        }
+
+        // Load Branches and Segments
+        async function loadBranchesAndSegments() {
+            try {
+                const bRes = await fetch('/api/vault/branches');
+                const bData = await bRes.json();
+                allBranches = bData.branches || [];
+
+                const sRes = await fetch('/api/vault/segments');
+                const sData = await sRes.json();
+                allSegments = sData.segments || [];
+
+                populateDropdowns();
+            } catch (e) {
+                console.error('Error loading branches/segments:', e);
+            }
+        }
+
+        function populateDropdowns() {
+            const vBranch = document.getElementById('vaultBranchSelect');
+            if (vBranch) {
+                vBranch.innerHTML = allBranches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+            }
+
+            const fbBranch = document.getElementById('fbBranchSelect');
+            if (fbBranch) {
+                fbBranch.innerHTML = '<option value="Head Office / Circle">Head Office / Circle</option>' +
+                    allBranches.map(b => `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`).join('');
+            }
+
+            const vSeg = document.getElementById('vaultSegmentSelect');
+            if (vSeg) {
+                vSeg.innerHTML = allSegments.map(s => `<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`).join('');
+            }
+
+            onVaultBranchChange();
+        }
+
+        // Vault Customer Handling
+        async function onVaultBranchChange() {
+            await updateVaultCustomers();
+        }
+
+        async function onVaultSegmentChange() {
+            await updateVaultCustomers();
+        }
+
+        async function updateVaultCustomers() {
+            const branchEl = document.getElementById('vaultBranchSelect');
+            const segmentEl = document.getElementById('vaultSegmentSelect');
+            const custSelect = document.getElementById('vaultCustomerSelect');
+            if (!branchEl || !segmentEl || !custSelect) return;
+
+            const branch = branchEl.value;
+            const segment = segmentEl.value;
+
+            try {
+                const res = await fetch(`/api/vault/customers?branch=${encodeURIComponent(branch)}&segment=${encodeURIComponent(segment)}`);
+                const data = await res.json();
+                const customers = data.customers || [];
+
+                let options = '<option value="__NEW__">[ + Naya Customer Folder Banayein / Add New ]</option>';
+                customers.forEach(c => {
+                    options += `<option value="${escapeHtml(c)}">${escapeHtml(c.replace('_DOCUMENTS', ''))}</option>`;
+                });
+                custSelect.innerHTML = options;
+
+                onVaultCustomerSelectChange();
+            } catch (e) {
+                custSelect.innerHTML = '<option value="__NEW__">[ + Naya Customer Folder Banayein ]</option>';
+                onVaultCustomerSelectChange();
+            }
+        }
+
+        function onVaultCustomerSelectChange() {
+            const custSelect = document.getElementById('vaultCustomerSelect');
+            if (!custSelect) return;
+            const isNew = custSelect.value === '__NEW__';
+            const inputGroup = document.getElementById('vaultNewCustomerInputGroup');
+            if (inputGroup) inputGroup.style.display = isNew ? 'flex' : 'none';
+
+            if (!isNew) {
+                loadVaultCustomerFiles();
+            } else {
+                const list = document.getElementById('vaultCustomerFilesList');
+                if (list) list.innerHTML = '<span style="color: var(--text-muted); font-size: 12px;">Naya customer naam darj karein aur documents upload karein.</span>';
+                const badgesBox = document.getElementById('apprFilesBadges');
+                if (badgesBox) badgesBox.innerHTML = '<span style="color: var(--text-muted);">Pehle customer select karein ya naya banayein.</span>';
+                const countBadge = document.getElementById('vaultDocCountBadge');
+                if (countBadge) countBadge.textContent = '0 Files';
+            }
+        }
+
+        async function loadVaultCustomerFiles() {
+            const branchEl = document.getElementById('vaultBranchSelect');
+            const segmentEl = document.getElementById('vaultSegmentSelect');
+            const custSelect = document.getElementById('vaultCustomerSelect');
+            if (!branchEl || !segmentEl || !custSelect) return;
+
+            const branch = branchEl.value;
+            const segment = segmentEl.value;
+            const customer = custSelect.value;
+            const list = document.getElementById('vaultCustomerFilesList');
+            const badgesBox = document.getElementById('apprFilesBadges');
+            const countBadge = document.getElementById('vaultDocCountBadge');
+
+            if (customer === '__NEW__') return;
+            if (list) list.innerHTML = '<em>Checking files in vault... ⏳</em>';
+
+            try {
+                const res = await fetch(`/api/vault/customer-files?branch=${encodeURIComponent(branch)}&segment=${encodeURIComponent(segment)}&customer=${encodeURIComponent(customer)}`);
+                const data = await res.json();
+                const files = data.files || [];
+
+                if (countBadge) countBadge.textContent = `${files.length} Files`;
+
+                if (!files.length) {
+                    if (list) list.innerHTML = '<span style="color: var(--text-muted); font-size: 12px;">Is customer folder me abhi koi documents nahi hain. Ooper se upload karein.</span>';
+                    if (badgesBox) badgesBox.innerHTML = '<span style="color: #f59e0b;">⚠️ Koi document nahi mila. Ooper se upload karein.</span>';
+                    return;
+                }
+
+                // Render Clickable Hyperlinks with Preview Buttons
+                if (list) {
+                    list.innerHTML = files.map(f => {
+                        const fileUrl = `/api/vault/file?branch=${encodeURIComponent(branch)}&segment=${encodeURIComponent(segment)}&customer=${encodeURIComponent(customer)}&file=${encodeURIComponent(f.name)}`;
+                        return `
+                            <div class="doc-item-row">
+                                <div style="min-width: 0; display: flex; align-items: center; gap: 8px; flex: 1;">
+                                    <span style="font-size: 16px; flex-shrink: 0;">📄</span>
+                                    <a href="${fileUrl}" target="_blank" style="color: #60a5fa; text-decoration: underline; font-size: 12px; word-break: break-all; font-weight: 500; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="Click karke document open / view karein">
+                                        ${escapeHtml(f.name)}
+                                    </a>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                                    <span style="color: var(--text-muted); font-size: 10px;">${(f.sizeBytes / 1024).toFixed(0)} KB</span>
+                                    <a href="${fileUrl}" target="_blank" class="copy-pill-btn" style="text-decoration: none; padding: 4px 8px; font-size: 10px; background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); color: #93c5fd;">
+                                        👁️ Dekhein
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                // Synchronize Appraisal badges with clickable preview links
+                if (badgesBox) {
+                    badgesBox.innerHTML = files.map(f => {
+                        const fileUrl = `/api/vault/file?branch=${encodeURIComponent(branch)}&segment=${encodeURIComponent(segment)}&customer=${encodeURIComponent(customer)}&file=${encodeURIComponent(f.name)}`;
+                        return `
+                            <a href="${fileUrl}" target="_blank" class="badge-pill" style="text-decoration: none; background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); display: inline-flex; align-items: center; gap: 4px;" title="View ${escapeHtml(f.name)}">
+                                📄 ${escapeHtml(f.name)} 👁️
+                            </a>
+                        `;
+                    }).join('');
+                }
+            } catch (e) {
+                if (list) list.innerHTML = `<span style="color: #ef4444;">Error: ${e.message}</span>`;
+            }
+        }
+
+        async function handleVaultUpload(files) {
+            if (!files.length) return;
+            const branch = document.getElementById('vaultBranchSelect').value;
+            const segment = document.getElementById('vaultSegmentSelect').value;
+            const custSelect = document.getElementById('vaultCustomerSelect');
+
+            let customerName = custSelect.value;
+            if (customerName === '__NEW__') {
+                const nameInput = document.getElementById('vaultNewCustomerName').value.trim();
+                if (!nameInput) {
+                    alert('Kripya naye customer ka naam darj karein!');
+                    return;
+                }
+                customerName = nameInput;
+            }
+
+            const pBox = document.getElementById('vaultUploadStatus');
+            pBox.style.display = 'block';
+            pBox.innerHTML = `Uploading ${files.length} document(s)... ⏳`;
+
+            for (let i = 0; i < files.length; i++) {
+                const formData = new FormData();
+                formData.append('branch', branch);
+                formData.append('segment', segment);
+                formData.append('customerName', customerName);
+                formData.append('file', files[i]);
+
+                await fetch('/api/vault/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+            }
+
+            pBox.innerHTML = `✅ Successfully uploaded ${files.length} document(s) into Master Vault! Folder updated automatically.`;
+
+            // Refresh customers list and auto-select this customer
+            await updateVaultCustomers();
+            custSelect.value = customerName;
+            onVaultCustomerSelectChange();
+        }
+
+        // Scheme Shortcut Helper
+        function setAppraisalCommand(text) {
+            const input = document.getElementById('apprCommandInput');
+            if (input) {
+                input.value = text;
+                input.focus();
+            }
+        }
+
+        // Voice Speech-to-Text Recognition (Mic)
+        function toggleAppraisalVoiceMic() {
+            const micBtn = document.getElementById('apprMicBtn');
+            const statusEl = document.getElementById('apprMicStatus');
+            const textarea = document.getElementById('apprCommandInput');
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('Aapka browser Speech Recognition (Mic) support nahi karta. Kripya Chrome ya Edge use karein ya text box me type karein.');
+                return;
+            }
+
+            if (isRecording) {
+                if (recognition) recognition.stop();
+                return;
+            }
+
+            try {
+                recognition = new SpeechRecognition();
+                recognition.lang = 'hi-IN'; // Supports Hindi + English mixed banking commands
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = function() {
+                    isRecording = true;
+                    if (micBtn) {
+                        micBtn.classList.add('recording');
+                        micBtn.innerHTML = '🛑 <span>Stop</span>';
+                    }
+                    if (statusEl) {
+                        statusEl.style.display = 'inline-block';
+                        statusEl.textContent = '🎙️ Sun raha hoon... Boliye! (Listening...)';
+                    }
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    if (textarea) {
+                        if (textarea.value.trim()) {
+                            textarea.value += ' ' + transcript;
+                        } else {
+                            textarea.value = transcript;
+                        }
+                    }
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    if (statusEl) {
+                        statusEl.textContent = '⚠️ Mic Error: ' + event.error;
+                    }
+                };
+
+                recognition.onend = function() {
+                    isRecording = false;
+                    if (micBtn) {
+                        micBtn.classList.remove('recording');
+                        micBtn.innerHTML = '🎙️ <span>Bolkar Likhein (Mic)</span>';
+                    }
+                    if (statusEl) {
+                        setTimeout(() => {
+                            if (!isRecording) statusEl.style.display = 'none';
+                        }, 2500);
+                    }
+                };
+
+                recognition.start();
+            } catch (err) {
+                console.error('Mic start failed:', err);
+                alert('Mic shuru nahi ho saka: ' + err.message);
+            }
+        }
+
+        // Run Command-Driven Dynamic Autonomous Appraisal
+        async function runAutonomousAppraisal() {
+            const branch = document.getElementById('vaultBranchSelect').value;
+            const segment = document.getElementById('vaultSegmentSelect').value;
+            const customer = document.getElementById('vaultCustomerSelect').value;
+            const cmdInput = document.getElementById('apprCommandInput');
+            const commandText = cmdInput ? cmdInput.value.trim() : '';
+
+            if (!customer || customer === '__NEW__') {
+                alert('Kripya pehle valid customer select karein!');
+                return;
+            }
+
+            const resCard = document.getElementById('appraisalResultCard');
+            resCard.style.display = 'block';
+
+            const metrics = document.getElementById('appraisalMetrics');
+            metrics.innerHTML = '<div style="color: var(--text-secondary); grid-column: 1 / -1;">Documents aur specified scheme guidelines evaluate ho rahe hain... ⏳</div>';
+
+            try {
+                const res = await fetch('/api/ai/appraise', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        branchName: branch,
+                        segment: segment,
+                        customerName: customer,
+                        commandText: commandText
+                    })
+                });
+                const data = await res.json();
+
+                // Metrics Display
+                metrics.innerHTML = `
+                    <div class="metric-box">
+                        <span class="label">Monthly Installment (EMI):</span>
+                        <span class="value">₹${data.financials.emi.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="label">Effective ROI:</span>
+                        <span class="value" style="color: #34d399;">${data.financials.roi}%</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="label">EMI / NMI Ratio:</span>
+                        <span class="value">${data.financials.emiNmiRatio}</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="label">Margin Provided:</span>
+                        <span class="value">${data.financials.marginPercent}%</span>
+                    </div>
+                `;
+
+                // Positive & Negative Points
+                document.getElementById('positiveList').innerHTML = data.positivePoints.map(p => `<li>${escapeHtml(p)}</li>`).join('');
+                document.getElementById('negativeList').innerHTML = (data.negativePoints.length ? data.negativePoints : ['Nil material defect. Clean proposal as per circular.']).map(n => `<li>${escapeHtml(n)}</li>`).join('');
+
+                // Letter to Branch Manager
+                document.getElementById('bmLetterBox').textContent = data.bmLetter;
+
+                // DOCX Download Badge
+                if (data.docxFilename) {
+                    document.getElementById('docxResultBadge').innerHTML = `
+                        <a href="/api/chat/download?file=${encodeURIComponent(data.docxFilename)}" class="docx-download-chip" download>📥 Download DOCX</a>
+                    `;
+                }
+
+                resCard.scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                metrics.innerHTML = `<div style="color: #ef4444; grid-column: 1 / -1;">Appraisal failed: ${err.message}</div>`;
+            }
+        }
+
+        function copyBmLetter() {
+            const text = document.getElementById('bmLetterBox').textContent;
+            navigator.clipboard.writeText(text);
+            alert('Official Discrepancy Letter copied to clipboard!');
+        }
+
+        // AI Chat Engine
+        async function sendChat() {
+            const input = document.getElementById('chatInput');
+            const q = input.value.trim();
+            if (!q) return;
+
+            const feed = document.getElementById('chatFeed');
+            feed.innerHTML += `<div class="chat-bubble user">${escapeHtml(q)}</div>`;
+            input.value = '';
+            feed.scrollTop = feed.scrollHeight;
+
+            const aiBubble = document.createElement('div');
+            aiBubble.className = 'chat-bubble ai';
+            aiBubble.innerHTML = '<em>Searching circulars & analyzing... ⏳</em>';
+            feed.appendChild(aiBubble);
+            feed.scrollTop = feed.scrollHeight;
+
+            try {
+                const res = await fetch('/api/ai/query', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: q })
+                });
+                const data = await res.json();
+
+                let html = formatMarkdown(data.response);
+                if (data.docxFilename) {
+                    html += `<br><a href="/api/chat/download?file=${encodeURIComponent(data.docxFilename)}" class="docx-download-chip" download>📥 Download DOCX: ${escapeHtml(data.docxFilename)}</a>`;
+                }
+                aiBubble.innerHTML = html;
+            } catch (err) {
+                aiBubble.innerHTML = `<span style="color: #ef4444;">Error: ${err.message}</span>`;
+            }
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        // DOCX History State & Search Handling
+        let allDocxFiles = [];
+        let currentDocxFilterKeyword = '';
+
+        async function loadDocxHistory() {
+            const list = document.getElementById('docxHistoryList');
+            const stats = document.getElementById('docxSearchStats');
+            if (list) list.innerHTML = '<em>Loading DOCX history... ⏳</em>';
+
+            try {
+                const res = await fetch('/api/chat/history');
+                const data = await res.json();
+                allDocxFiles = data.files || [];
+
+                filterDocxHistory();
+            } catch (e) {
+                if (list) list.innerHTML = `<span style="color: #ef4444;">Error: ${e.message}</span>`;
+            }
+        }
+
+        function filterDocxHistory() {
+            const input = document.getElementById('docxSearchInput');
+            const clearBtn = document.getElementById('docxSearchClearBtn');
+            const list = document.getElementById('docxHistoryList');
+            const stats = document.getElementById('docxSearchStats');
+
+            const query = (input ? input.value : '').trim().toLowerCase();
+            const filterTag = currentDocxFilterKeyword.toLowerCase();
+
+            if (clearBtn) {
+                clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+            }
+
+            const filtered = allDocxFiles.filter(f => {
+                const nameLower = f.name.toLowerCase();
+                const matchesQuery = !query || nameLower.includes(query);
+                const matchesFilterTag = !filterTag || nameLower.includes(filterTag);
+                return matchesQuery && matchesFilterTag;
+            });
+
+            if (stats) {
+                stats.textContent = `Showing ${filtered.length} of ${allDocxFiles.length} files`;
+            }
+
+            if (!filtered.length) {
+                list.innerHTML = `
+                    <div style="text-align: center; padding: 25px 10px; color: var(--text-muted); font-size: 12px; background: rgba(0,0,0,0.2); border-radius: var(--radius-sm); border: 1px dashed var(--border-glass);">
+                        🔍 Koi matching DOCX chat file nahi mili.<br>
+                        <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; display: inline-block;">Doosra keyword, customer name ya tarikh try karein.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = filtered.map(f => {
+                const highlightedName = highlightKeyword(f.name, query);
+                return `
+                    <div style="background: rgba(10, 14, 23, 0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 9px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                        <div style="min-width: 0; flex: 1;">
+                            <strong style="color: #fff; font-size: 12px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">📄 ${highlightedName}</strong>
+                            <span style="font-size: 10px; color: var(--text-muted);">${new Date(f.mtime).toLocaleString('en-IN')} &bull; ${(f.size / 1024).toFixed(0)} KB</span>
+                        </div>
+                        <a href="/api/chat/download?file=${encodeURIComponent(f.name)}" class="copy-pill-btn" download style="text-decoration: none; padding: 4px 8px; font-size: 10.5px;">📥 Download</a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function highlightKeyword(text, keyword) {
+            if (!keyword) return escapeHtml(text);
+            const escaped = escapeHtml(text);
+            const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escaped.replace(regex, '<span style="background: rgba(197, 155, 39, 0.35); color: #f3d078; font-weight: bold; padding: 0 2px; border-radius: 2px;">$1</span>');
+        }
+
+        function clearDocxSearch() {
+            const input = document.getElementById('docxSearchInput');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            filterDocxHistory();
+        }
+
+        function applyDocxFilter(keyword, btn) {
+            currentDocxFilterKeyword = keyword;
+            document.querySelectorAll('#tab-docx-vault .copy-pill-btn').forEach(b => {
+                if (b !== btn && !b.getAttribute('onclick')?.includes('loadDocxHistory')) {
+                    b.style.borderColor = 'var(--border-glass)';
+                    b.style.color = 'var(--text-secondary)';
+                }
+            });
+            if (btn) {
+                btn.style.borderColor = 'var(--pnb-gold)';
+                btn.style.color = 'var(--pnb-gold)';
+            }
+            filterDocxHistory();
+        }
+
+        function applyDocxFilterToday(btn) {
+            const today = new Date().toISOString().slice(0, 10);
+            applyDocxFilter(today, btn);
+        }
+
+        // Feedback & Diagnostics Handling
+        function getClientDiagnostics() {
+            return {
+                userAgent: navigator.userAgent,
+                isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+                language: navigator.language,
+                time: new Date().toISOString()
+            };
+        }
+
+        function updateDiagnosticsDisplay() {
+            const diag = getClientDiagnostics();
+            const el = document.getElementById('fbDiagText');
+            if (el) {
+                el.innerHTML = `${diag.isMobile ? '📱 Mobile' : '💻 Desktop'} &bull; Res: ${window.innerWidth}x${window.innerHeight} &bull; <span style="color: #10b981;">● Multi-User Active</span>`;
+            }
+        }
+
+        async function submitFeedback() {
+            const staffName = document.getElementById('fbStaffName').value.trim();
+            const branch = document.getElementById('fbBranchSelect').value;
+            const category = document.getElementById('fbCategory').value;
+            const screen = document.getElementById('fbScreen').value;
+            const severity = document.getElementById('fbSeverity').value;
+            const message = document.getElementById('fbMessage').value.trim();
+
+            if (!message) {
+                alert('Kripya samasya ya feedback ka vivaran (description) likhein!');
+                return;
+            }
+
+            const alertBox = document.getElementById('fbAlertBox');
+            alertBox.style.display = 'block';
+            alertBox.style.background = 'rgba(197, 155, 39, 0.15)';
+            alertBox.style.border = '1px solid var(--pnb-gold)';
+            alertBox.style.color = '#f3d078';
+            alertBox.innerHTML = 'Submitting feedback & generating ticket... ⏳';
+
+            try {
+                const res = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        staffName: staffName || 'Staff Member',
+                        branch: branch || 'Circle Office',
+                        category,
+                        screen,
+                        severity,
+                        message,
+                        deviceInfo: getClientDiagnostics()
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alertBox.style.background = 'rgba(16, 185, 129, 0.15)';
+                    alertBox.style.border = '1px solid var(--success)';
+                    alertBox.style.color = '#34d399';
+                    alertBox.innerHTML = `✅ <strong>Feedback Safalta-purvak Darj Ho Gaya!</strong><br>Ticket Reference ID: <strong>${escapeHtml(data.ticketId)}</strong>.<br>Technical team ise review karke resolve karegi.`;
+                    document.getElementById('fbMessage').value = '';
+                    await loadFeedbackHistory();
+                } else {
+                    throw new Error(data.error || 'Submission failed');
+                }
+            } catch (e) {
+                alertBox.style.background = 'rgba(239, 68, 68, 0.15)';
+                alertBox.style.border = '1px solid var(--danger)';
+                alertBox.style.color = '#fca5a5';
+                alertBox.innerHTML = `❌ Error: ${escapeHtml(e.message)}`;
+            }
+        }
+
+        async function loadFeedbackHistory() {
+            const list = document.getElementById('fbTicketsList');
+            if (!list) return;
+            list.innerHTML = '<em>Loading recent feedback tickets... ⏳</em>';
+
+            try {
+                const res = await fetch('/api/feedback');
+                const data = await res.json();
+                const tickets = data.tickets || [];
+
+                const badge = document.getElementById('fbTicketCountBadge');
+                if (badge) badge.textContent = `${tickets.length} Tickets`;
+
+                if (!tickets.length) {
+                    list.innerHTML = '<span style="color: var(--text-muted); font-size: 12px;">Abhi koi feedback ticket darj nahi hai.</span>';
+                    return;
+                }
+
+                list.innerHTML = tickets.map(t => {
+                    const statusColor = t.status === 'RESOLVED' ? '#10b981' : (t.status === 'IN_PROGRESS' ? '#f59e0b' : '#ef4444');
+                    const statusBg = t.status === 'RESOLVED' ? 'rgba(16, 185, 129, 0.15)' : (t.status === 'IN_PROGRESS' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(239, 68, 68, 0.15)');
+                    return `
+                        <div style="background: rgba(10, 14, 23, 0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 12px; font-size: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <strong style="color: var(--pnb-gold); font-size: 12.5px;">${escapeHtml(t.ticketId)}</strong>
+                                <span style="background: ${statusBg}; color: ${statusColor}; border: 1px solid ${statusColor}; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">
+                                    ${escapeHtml(t.status)}
+                                </span>
+                            </div>
+                            <div style="font-size: 10.5px; color: var(--text-muted); margin-bottom: 6px;">
+                                ${escapeHtml(t.displayTime || t.createdAt)} &bull; ${escapeHtml(t.branch)} &bull; Staff: <strong>${escapeHtml(t.staffName)}</strong>
+                            </div>
+                            <div style="margin-bottom: 6px;">
+                                <span style="background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 10.5px; color: #cbd5e1; margin-right: 6px;">${escapeHtml(t.category)}</span>
+                                <span style="background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 10.5px; color: #cbd5e1;">${escapeHtml(t.screen)}</span>
+                            </div>
+                            <div style="color: #f8fafc; font-size: 12px; background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 4px; line-height: 1.4;">
+                                ${escapeHtml(t.message)}
+                            </div>
+                            ${t.resolutionNotes ? `
+                                <div style="margin-top: 8px; font-size: 11px; color: #34d399; background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 6px 10px; border-radius: 2px;">
+                                    <strong>Resolution:</strong> ${escapeHtml(t.resolutionNotes)}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                list.innerHTML = `<span style="color: #ef4444;">Error: ${e.message}</span>`;
+            }
+        }
+
+        function formatMarkdown(text) {
+            if (!text) return '';
+            return text
+                .replace(/^# (.*$)/gim, '<h2 style="color: var(--pnb-gold); font-size: 14.5px; margin: 8px 0 4px 0;">$1</h2>')
+                .replace(/^## (.*$)/gim, '<h3 style="color: var(--pnb-gold-light); font-size: 13px; margin: 6px 0 3px 0;">$1</h3>')
+                .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+                .replace(/`([^`]+)`/gim, '<code style="background: rgba(0,0,0,0.4); padding: 1px 4px; border-radius: 3px; color: #f59e0b;">$1</code>')
+                .replace(/^\* (.*$)/gim, '<li>$1</li>')
+                .replace(/\n\n/gim, '<br><br>')
+                .replace(/\n/gim, '<br>');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>

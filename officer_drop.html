@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Officer Loan File Drop Portal</title>
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: #111827;
+            --border: #374151;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #10b981;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        * { box-sizing: border-box; margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 580px; padding: 26px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header { text-align: center; margin-bottom: 22px; }
+        .header h1 { font-size: 20px; color: #fff; margin-bottom: 6px; }
+        .header p { font-size: 13px; color: var(--text-muted); }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; }
+        .form-input, .form-select, .form-textarea { width: 100%; background: #1f2937; border: 1px solid var(--border); color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; }
+        .dropzone { border: 2px dashed #4b5563; border-radius: 10px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(31, 41, 55, 0.4); margin-bottom: 18px; }
+        .dropzone:hover { border-color: var(--primary); background: rgba(37, 99, 235, 0.08); }
+        .btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+        .btn:hover { background: var(--primary-hover); }
+        .alert { display: none; padding: 12px; border-radius: 8px; font-size: 13px; margin-top: 14px; text-align: center; }
+        .alert-success { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <div style="font-size: 36px; margin-bottom: 8px;">🏛️</div>
+            <h1>Branch Officer Loan Drop</h1>
+            <p>Upload customer loan proposals directly into Underwriter Staging Queue</p>
+        </div>
+
+        <form id="dropForm">
+            <div class="form-group">
+                <label class="form-label">Sponsoring Officer Name & Phone</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="text" class="form-input" id="officerName" placeholder="e.g. Officer Rajesh" required>
+                    <input type="text" class="form-input" id="officerPhone" placeholder="+91 9329718002" value="+91 9329718002" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Branch</label>
+                <select class="form-select" id="branch" required>
+                    <option value="001 - CHANDNI CHOWK">001 - CHANDNI CHOWK</option>
+                    <option value="002 - CONNAUGHT PLACE">002 - CONNAUGHT PLACE</option>
+                    <option value="003 - NOIDA SECTOR 18">003 - NOIDA SECTOR 18</option>
+                    <option value="004 - KAROL BAGH">004 - KAROL BAGH</option>
+                    <option value="005 - SOUTH EXTENSION">005 - SOUTH EXTENSION</option>
+                    <option value="006 - NEHRU PLACE">006 - NEHRU PLACE</option>
+                    <option value="007 - GURUGRAM CYBER CITY">007 - GURUGRAM CYBER CITY</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Customer / Applicant Name</label>
+                <input type="text" class="form-input" id="customerName" placeholder="e.g. Shri Ramesh Gupta" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Loan Scheme</label>
+                <select class="form-select" id="scheme" required>
+                    <option value="Car_Loan">Car Loan Scheme</option>
+                    <option value="Housing_Loan">Housing Loan Scheme</option>
+                    <option value="MSME_Loan">MSME Loan / Cash Credit</option>
+                    <option value="Education_Loan">Education Loan</option>
+                    <option value="Personal_Loan">Personal Loan</option>
+                    <option value="Agriculture_Loan">Agriculture Loan</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Attached Loan Documents (PDF, JPG, PNG)</label>
+                <div class="dropzone" onclick="document.getElementById('fileInput').click()">
+                    <div style="font-size: 24px; margin-bottom: 6px;">📂</div>
+                    <div style="font-size: 13px; color: #d1d5db;" id="dropLabel">Click to select KYC, ITR, Quotation, Title Deed</div>
+                    <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFiles(this.files)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Remarks / Scheme Particulars</label>
+                <textarea class="form-textarea" id="remarks" rows="2" placeholder="e.g. CIBIL score 790, Quotation enclosed"></textarea>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">📤 Submit Dossier to Underwriter</button>
+
+            <div class="alert alert-success" id="alertBox">
+                ✓ Loan Dossier Submitted Successfully! Underwriter has been notified.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+
+        function handleFiles(files) {
+            selectedFiles = Array.from(files);
+            const label = document.getElementById('dropLabel');
+            if (selectedFiles.length > 0) {
+                label.innerText = `Selected ${selectedFiles.length} files: ` + selectedFiles.map(f => f.name).join(', ');
+            } else {
+                label.innerText = 'Click to select KYC, ITR, Quotation, Title Deed';
+            }
+        }
+
+        document.getElementById('dropForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = 'Submitting...';
+
+            const formData = new FormData();
+            formData.append('officerName', document.getElementById('officerName').value);
+            formData.append('officerPhone', document.getElementById('officerPhone').value);
+            formData.append('branch', document.getElementById('branch').value);
+            formData.append('customerName', document.getElementById('customerName').value);
+            formData.append('scheme', document.getElementById('scheme').value);
+            formData.append('remarks', document.getElementById('remarks').value);
+
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            try {
+                const res = await fetch('/api/officer-drop/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('alertBox').style.display = 'block';
+                    document.getElementById('dropForm').reset();
+                    document.getElementById('dropLabel').innerText = 'Click to select KYC, ITR, Quotation, Title Deed';
+                    selectedFiles = [];
+                } else {
+                    alert('Upload failed');
+                }
+            } catch (err) {
+                alert('Submission error: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '📤 Submit Dossier to Underwriter';
+            }
+        });
+
+        // Dynamically load Jabalpur Circle branches
+        async function loadBranches() {
+            try {
+                const res = await fetch('/api/branches');
+                const data = await res.json();
+                if (data.branches && data.branches.length > 0) {
+                    const sel = document.getElementById('branch');
+                    sel.innerHTML = '';
+                    data.branches.forEach(b => {
+                        const opt = document.createElement('option');
+                        opt.value = b;
+                        opt.textContent = b;
+                        sel.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error('Failed to load branches:', err);
+            }
+        }
+        loadBranches();
+    </script>
+</body>
+</html>

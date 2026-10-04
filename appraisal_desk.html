@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Loan Appraisal - WhatsApp & Underwriting Hub</title>
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: #111827;
+            --surface-elevated: #1f2937;
+            --border: #374151;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #10b981;
+            --accent-whatsapp: #25D366;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --radius-lg: 14px;
+            --radius-md: 8px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Header Navbar */
+        header {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .pill-whatsapp {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.35);
+            color: #4ade80;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pill-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.22);
+            transform: translateY(-1px);
+        }
+
+        .pill-whatsapp .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #25D366;
+            box-shadow: 0 0 10px #25D366;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .pill-queue {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn {
+            background: var(--surface-elevated);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            background: #374151;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-accent {
+            background: #059669;
+            border-color: #059669;
+        }
+
+        .btn-accent:hover {
+            background: #047857;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1350px;
+            margin: 28px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        /* Banner */
+        .whatsapp-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(37, 99, 235, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .banner-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .banner-icon {
+            font-size: 32px;
+            background: rgba(37, 211, 102, 0.15);
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-text h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+
+        .banner-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Two Column Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Pending Intake Card */
+        .intake-card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .intake-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .badge-whatsapp {
+            background: rgba(37, 211, 102, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+
+        .badge-scheme {
+            background: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .badge-branch {
+            background: rgba(168, 85, 247, 0.15);
+            color: #d8b4fe;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .card-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .applicant-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .officer-info {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .message-preview {
+            background: #111827;
+            border-left: 3px solid var(--primary);
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-bottom: 14px;
+            white-space: pre-wrap;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .files-header {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .file-item .file-name {
+            font-weight: 500;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .file-item .file-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-size {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .card-actions {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--text-muted);
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        /* Tree view */
+        .tree-node {
+            margin-left: 14px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .tree-folder {
+            color: #93c5fd;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tree-file {
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tree-receipt {
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* Pairing Code Box */
+        .pairing-box {
+            background: #0d1527;
+            border: 2px dashed #3b82f6;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 18px 0;
+        }
+
+        .pairing-code-display {
+            font-family: monospace;
+            font-size: 36px;
+            font-weight: 800;
+            color: #60a5fa;
+            letter-spacing: 6px;
+            margin: 10px 0;
+        }
+
+        .step-list {
+            text-align: left;
+            margin-top: 14px;
+            font-size: 13px;
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .step-list li {
+            margin-left: 20px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header>
+        <div class="brand-container">
+            <div class="logo-badge">🏛️</div>
+            <div class="brand-text">
+                <h1>Bank Loan Appraisal Suite</h1>
+                <p>Document Ingestion, WhatsApp Engine & Underwriter Approval</p>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <!-- Active WhatsApp Pill -->
+            <div class="pill-whatsapp" id="whatsappStatusPill" onclick="openWhatsAppModal()">
+                <div class="dot"></div>
+                <span id="whatsappStatusText">Connecting WhatsApp...</span>
+            </div>
+
+            <!-- Queue Counter -->
+                        <!-- Power Automate & OCR Studio Button -->
+            <button class="btn" style="background: #1e3a8a; border-color: #3b82f6; color: #93c5fd;" onclick="openPowerAutomateModal()">
+                ⚡ Power Automate & OCR Studio
+            </button>
+
+            <div class="pill-queue" id="queueCounterPill">
+                <span>📥 Pending: <strong id="queueCount">0</strong></span>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Live WhatsApp Active Number Banner -->
+        <div class="whatsapp-banner">
+            <div class="banner-info">
+                <div class="banner-icon">💬</div>
+                <div class="banner-text">
+                    <h3>Target WhatsApp: <span style="color:#25D366;">+91 9329718002</span></h3>
+                    <p id="whatsappBannerDetail">Listening for incoming customer dossiers from Branch Officers. Timestamped saving strictly isolated in D:\Bank_Loan_Appraisal.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primary" style="background: #2563eb; border-color: #3b82f6;" onclick="launchAutomator()">
+                    🚀 Start Auto-Sync Browser
+                </button>
+                <button class="btn btn-accent" onclick="openWhatsAppModal()">
+                    📲 Link / View Instructions
+                </button>
+                <a href="/officer-drop" target="_blank" class="btn">
+                    🌐 Open Mobile Officer Drop
+                </a>
+            </div>
+        </div>
+
+        <!-- 2-Column Grid: Left = Pending Approvals, Right = Master Vault Explorer -->
+        <div class="grid-2">
+            
+            <!-- Left: Underwriter Pending Approval Desk -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        📥 Intake Approval Desk <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">(Requires Human Approval)</span>
+                    </div>
+                    <button class="btn" onclick="fetchPendingIntakes()">🔄 Refresh</button>
+                </div>
+
+                <div id="pendingIntakesList">
+                    <div class="empty-state">
+                        <p>Checking incoming queues...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Master Vault Categorical Storage -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        🗂️ Master Vault (<code style="font-size:12px; color:#60a5fa;">MASTER_VAULT/DATA/</code>)
+                    </div>
+                    <button class="btn" onclick="fetchVaultTree()">🔄 Refresh Vault</button>
+                </div>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">
+                    Approved dossiers are categorized by <strong>Branch → Segment → Scheme → Officer → Customer</strong> with audit receipts.
+                </p>
+
+                <div id="vaultTreeContainer" style="max-height: 520px; overflow-y: auto; background: #090d16; padding: 14px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="empty-state">Loading vault...</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL: Link WhatsApp 9329718002 -->
+    <div class="modal-overlay" id="modalWhatsApp">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <h2 style="font-size:18px;">📲 Link Official WhatsApp for +91 9329718002</h2>
+                <button class="modal-close" onclick="closeModal('modalWhatsApp')">&times;</button>
+            </div>
+
+            <div style="background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                <h4 style="color: #4ade80; font-size: 14px; margin-bottom: 6px;">💡 WhatsApp Official Security Requirement</h4>
+                <p style="font-size: 13px; color: #d1d5db; line-height: 1.5;">
+                    WhatsApp का सुरक्षा नियम है कि <strong>"Link with phone number"</strong> का 8-अंकों का कोड केवल <strong>WhatsApp Web (Meta का आधिकारिक सर्वर)</strong> द्वारा ही जारी किया जा सकता है। थर्ड-पार्टी कोड डालने पर WhatsApp <em>"check the phone number"</em> एरर दिखाता है।
+                </p>
+            </div>
+
+            <div class="pairing-box" style="text-align: left; padding: 18px;">
+                <h4 style="color: #fff; font-size: 15px; margin-bottom: 12px;">आधिकारिक WhatsApp Web से 30 सेकंड में लिंक करें:</h4>
+                <ol class="step-list" style="margin-top: 0;">
+                    <li>नीचे दिए गए <strong>"🌐 Open Official WhatsApp Web"</strong> बटन पर क्लिक करें (या नए टैब में <a href="https://web.whatsapp.com" target="_blank" style="color: #60a5fa;">web.whatsapp.com</a> खोलें)।</li>
+                    <li>वहाँ <strong>"Link with phone number"</strong> विकल्प पर क्लिक करें।</li>
+                    <li>अपना नंबर दर्ज करें: <strong style="color: #4ade80;">9329718002</strong> (Country: India +91)।</li>
+                    <li>WhatsApp Web की स्क्रीन पर आधिकारिक 8-अंकों का कोड दिखाई देगा।</li>
+                    <li>अपने फोन पर <strong>WhatsApp → Linked Devices → Link a Device</strong> में वह कोड डालें। आपका फोन तुरंत लिंक हो जाएगा!</li>
+                </ol>
+
+                <div style="margin-top: 18px; display: flex; gap: 10px; align-items: center;">
+                    <a href="https://web.whatsapp.com" target="_blank" class="btn btn-primary" style="padding: 10px 18px; font-size: 14px; text-decoration: none;">
+                        🌐 1. Open Official WhatsApp Web
+                    </a>
+                    <button class="btn btn-accent" onclick="confirmDeviceStatus('CONNECTED')">
+                        ✓ 2. Mark Connected in Desk
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; color: var(--text-muted);">Status: <strong id="modalConnStatus" style="color: #4ade80;">READY</strong></span>
+                <button class="btn" onclick="closeModal('modalWhatsApp')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Approve Loan Dossier -->
+    <div class="modal-overlay" id="modalApprove">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 style="font-size:18px;">✓ Approve & Categorize Loan Dossier</h2>
+                <button class="modal-close" onclick="closeModal('modalApprove')">&times;</button>
+            </div>
+
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+                Verify or modify the detected metadata. Upon approval, folders will be created and files timestamped.
+            </p>
+
+            <input type="hidden" id="approveIntakeId">
+
+            <div class="form-group">
+                <label class="form-label">Customer / Applicant Name</label>
+                <input type="text" class="form-input" id="approveCustomerName">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Loan Scheme</label>
+                <select class="form-select" id="approveScheme">
+                    <option value="Car_Loan">Car Loan (Retail Lending)</option>
+                    <option value="Housing_Loan">Housing Loan (Retail Lending)</option>
+                    <option value="MSME_Loan">MSME Loan / Cash Credit (MSME Lending)</option>
+                    <option value="Education_Loan">Education Loan (Retail Lending)</option>
+                    <option value="Personal_Loan">Personal Loan (Retail Lending)</option>
+                    <option value="Agriculture_Loan">Agriculture Loan (KCC / Agri)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Branch</label>
+                <select class="form-select" id="approveBranch">
+                    <option value="001 - CHANDNI CHOWK">001 - CHANDNI CHOWK</option>
+                    <option value="002 - CONNAUGHT PLACE">002 - CONNAUGHT PLACE</option>
+                    <option value="003 - NOIDA SECTOR 18">003 - NOIDA SECTOR 18</option>
+                    <option value="004 - KAROL BAGH">004 - KAROL BAGH</option>
+                    <option value="005 - SOUTH EXTENSION">005 - SOUTH EXTENSION</option>
+                    <option value="006 - NEHRU PLACE">006 - NEHRU PLACE</option>
+                    <option value="007 - GURUGRAM CYBER CITY">007 - GURUGRAM CYBER CITY</option>
+                </select>
+            </div>
+
+            <div style="background: #1f2937; padding: 12px; border-radius: 8px; font-size: 12px; color: #9ca3af; margin-bottom: 18px;">
+                Destination: <code id="destinationPreview" style="color: #60a5fa;">MASTER_VAULT/DATA/...</code>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button class="btn" onclick="closeModal('modalApprove')">Cancel</button>
+                <button class="btn btn-accent" onclick="submitApproval()">✓ Confirm & Save Timestamped Files</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Preview Document -->
+    <div class="modal-overlay" id="modalPreview">
+        <div class="modal" style="max-width: 850px; height: 85vh;">
+            <div class="modal-header">
+                <h2 style="font-size:16px;" id="previewTitle">Document Preview</h2>
+                <button class="modal-close" onclick="closeModal('modalPreview')">&times;</button>
+            </div>
+            <div id="previewContainer" style="width:100%; height:calc(100% - 50px); display:flex; align-items:center; justify-content:center;">
+                <iframe id="previewIframe" style="width:100%; height:100%; border:none; border-radius:6px; background:#fff;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentIntakes = [];
+        let whatsappConfig = {};
+
+        // On Load
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchBranches();
+            fetchWhatsAppStatus();
+            fetchPendingIntakes();
+            fetchVaultTree();
+
+            // Auto poll every 4 seconds
+            setInterval(() => {
+                fetchPendingIntakes(true);
+            }, 4000);
+        });
+
+        // Fetch Jabalpur Circle Branches
+        async function fetchBranches() {
+            try {
+                const res = await fetch('/api/branches');
+                const data = await res.json();
+                if (data.branches && data.branches.length > 0) {
+                    const sel = document.getElementById('approveBranch');
+                    sel.innerHTML = '';
+                    data.branches.forEach(b => {
+                        const opt = document.createElement('option');
+                        opt.value = b;
+                        opt.textContent = b;
+                        sel.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error('Branches error:', err);
+            }
+        }
+
+        // 1. Fetch WhatsApp Status for 9329718002
+        async function fetchWhatsAppStatus() {
+            try {
+                const res = await fetch('/api/whatsapp/status');
+                const data = await res.json();
+                whatsappConfig = data;
+
+                const pillText = document.getElementById('whatsappStatusText');
+                const modalStatus = document.getElementById('modalConnStatus');
+                const pairingCodeEl = document.getElementById('pairingCodeDisplay');
+
+                if (data.status === 'CONNECTED') {
+                    pillText.innerText = `WhatsApp Connected (${data.fullNumber})`;
+                    pillText.style.color = '#4ade80';
+                    modalStatus.innerText = 'CONNECTED';
+                    modalStatus.style.color = '#4ade80';
+                } else {
+                    pillText.innerText = `Link WhatsApp (${data.fullNumber})`;
+                    pillText.style.color = '#fbbf24';
+                    modalStatus.innerText = 'READY TO LINK';
+                    modalStatus.style.color = '#fbbf24';
+                }
+
+                if (data.pairingCode) {
+                    pairingCodeEl.innerText = data.pairingCode;
+                }
+            } catch (err) {
+                console.error('Status error:', err);
+            }
+        }
+
+        // 2. Generate New Pairing Code
+        async function generateNewPairingCode() {
+            try {
+                const res = await fetch('/api/whatsapp/pair_code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: '9329718002' })
+                });
+                const data = await res.json();
+                if (data.pairingCode) {
+                    document.getElementById('pairingCodeDisplay').innerText = data.pairingCode;
+                    alert('New 8-digit Pairing Code generated: ' + data.pairingCode + '\nEnter this code in WhatsApp -> Linked Devices -> Link with phone number instead.');
+                }
+            } catch (e) {
+                alert('Error generating code');
+            }
+        }
+
+        // Confirm Device Linked
+        async function confirmDeviceStatus(status) {
+            try {
+                await fetch('/api/whatsapp/link_confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                fetchWhatsAppStatus();
+                closeModal('modalWhatsApp');
+            } catch (e) {
+                alert('Error updating status');
+            }
+        }
+
+        // 3. Fetch Pending Intakes
+        async function fetchPendingIntakes(isSilent = false) {
+            try {
+                const res = await fetch('/api/intake/pending');
+                const data = await res.json();
+                currentIntakes = data.items || [];
+                document.getElementById('queueCount').innerText = data.count || 0;
+
+                renderPendingList();
+            } catch (err) {
+                if (!isSilent) console.error('Fetch error:', err);
+            }
+        }
+
+        function renderPendingList() {
+            const listEl = document.getElementById('pendingIntakesList');
+            if (!currentIntakes || currentIntakes.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <h4 style="color:#fff; margin-bottom:4px;">No Pending Loan Packets</h4>
+                        <p style="font-size:13px;">Incoming WhatsApp files sent to <strong>9329718002</strong> will appear here instantly.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            currentIntakes.forEach(item => {
+                const meta = item.metadata || {};
+                const files = item.files || [];
+                const receivedDate = new Date(item.receivedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                html += `
+                    <div class="intake-card">
+                        <div class="card-top">
+                            <div class="card-badges">
+                                <span class="badge badge-whatsapp">💬 ${item.channel}</span>
+                                <span class="badge badge-scheme">${(meta.scheme || 'Car_Loan').replace('_', ' ')}</span>
+                                <span class="badge badge-branch">${meta.branch || '001'}</span>
+                            </div>
+                            <span class="card-time">Received ${receivedDate}</span>
+                        </div>
+
+                        <div class="applicant-name">${(meta.customerName || 'Customer').replace('_', ' ')}</div>
+                        <div class="officer-info">Sender: <strong>${item.officerName || item.sender}</strong> (${item.sender})</div>
+
+                        ${item.text ? `<div class="message-preview">${escapeHtml(item.text)}</div>` : ''}
+
+                        <div class="files-header">Loan Documents Attached (${files.length})</div>
+                        ${files.map(f => `
+                            <div class="file-item">
+                                <div class="file-name">📄 ${f.name}</div>
+                                <div class="file-meta">
+                                    <span class="file-size">${formatBytes(f.sizeBytes)}</span>
+                                    <button class="btn" style="padding:3px 8px; font-size:11px;" onclick="previewFile('${item.intakeId}', '${encodeURIComponent(f.name)}')">👁️ Preview</button>
+                                </div>
+                            </div>
+                        `).join('')}
+
+                        <div class="card-actions">
+                            <button class="btn" style="border-color:var(--danger); color:#f87171;" onclick="rejectIntake('${item.intakeId}')">✕ Reject</button>
+                            <button class="btn btn-accent" onclick="openApproveModal('${item.intakeId}')">✓ Review & Approve</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            listEl.innerHTML = html;
+        }
+
+        // 4. Preview Document
+        function previewFile(intakeId, encodedFileName) {
+            const fileName = decodeURIComponent(encodedFileName);
+            document.getElementById('previewTitle').innerText = 'Preview: ' + fileName;
+            const url = `/api/intake/preview?intakeId=${encodeURIComponent(intakeId)}&fileName=${encodeURIComponent(fileName)}`;
+            document.getElementById('previewIframe').src = url;
+            openModal('modalPreview');
+        }
+
+        // 5. Open Approve Modal
+        function openApproveModal(intakeId) {
+            const intake = currentIntakes.find(i => i.intakeId === intakeId);
+            if (!intake) return;
+
+            document.getElementById('approveIntakeId').value = intakeId;
+            document.getElementById('approveCustomerName').value = (intake.metadata.customerName || '').replace(/_/g, ' ');
+            document.getElementById('approveScheme').value = intake.metadata.scheme || 'Car_Loan';
+            document.getElementById('approveBranch').value = intake.metadata.branch || '001 - CHANDNI CHOWK';
+
+            updateDestinationPreview();
+            openModal('modalApprove');
+        }
+
+        function updateDestinationPreview() {
+            const branch = document.getElementById('approveBranch').value.replace(/[\\/:*?"<>|]/g, '_');
+            const scheme = document.getElementById('approveScheme').value;
+            let cat = '2. Retail';
+            if (scheme === 'Agriculture_Loan') cat = '1. Agri';
+            else if (scheme === 'MSME_Loan') cat = '3. MSME';
+            const customer = document.getElementById('approveCustomerName').value.trim().replace(/\s+/g, '_') || 'Customer';
+            document.getElementById('destinationPreview').innerText = `MASTER_VAULT/DATA/${branch}/${cat}/${customer}_${scheme}/ (1_Documents, 2_Assessment, 3_Appraisal, 4_Sanction)`;
+        }
+
+        document.getElementById('approveBranch').addEventListener('change', updateDestinationPreview);
+        document.getElementById('approveScheme').addEventListener('change', updateDestinationPreview);
+        document.getElementById('approveCustomerName').addEventListener('input', updateDestinationPreview);
+
+        // Submit Approval
+        async function submitApproval() {
+            const intakeId = document.getElementById('approveIntakeId').value;
+            const customerName = document.getElementById('approveCustomerName').value.trim();
+            const scheme = document.getElementById('approveScheme').value;
+            const branch = document.getElementById('approveBranch').value;
+
+            try {
+                const res = await fetch('/api/intake/approve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        intakeId,
+                        customerName,
+                        scheme,
+                        branch,
+                        approvedBy: 'Senior Credit Underwriter'
+                    })
+                });
+                const result = await res.json();
+                if (result.success) {
+                    alert(`✓ Dossier for ${customerName} Approved!\n\nFolder Created:\n${result.vaultFolder}\n\nTimestamped files saved with Audit Receipt.`);
+                    closeModal('modalApprove');
+                    fetchPendingIntakes();
+                    fetchVaultTree();
+                } else {
+                    alert('Approval failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (err) {
+                alert('Error during approval: ' + err.message);
+            }
+        }
+
+        // Reject
+        async function rejectIntake(intakeId) {
+            const reason = prompt('Enter rejection reason for audit log:', 'Incomplete documents');
+            if (reason === null) return;
+
+            try {
+                const res = await fetch('/api/intake/reject', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ intakeId, reason })
+                });
+                const result = await res.json();
+                if (result.success) {
+                    fetchPendingIntakes();
+                }
+            } catch (e) {
+                alert('Rejection error');
+            }
+        }
+
+        // 6. Vault Tree
+        async function fetchVaultTree() {
+            try {
+                const res = await fetch('/api/vault/tree');
+                const data = await res.json();
+                renderVaultTree(data.tree || []);
+            } catch (e) {
+                console.error('Vault tree error:', e);
+            }
+        }
+
+        function renderVaultTree(tree) {
+            const container = document.getElementById('vaultTreeContainer');
+            if (!tree || tree.length === 0) {
+                container.innerHTML = '<div style="color:var(--text-muted); font-size:13px;">Vault is empty. Approved files will appear here.</div>';
+                return;
+            }
+
+            function buildHtml(items) {
+                let out = '<div class="tree-node">';
+                items.forEach(item => {
+                    if (item.type === 'directory') {
+                        out += `<div class="tree-folder">📁 ${item.name}</div>`;
+                        if (item.children && item.children.length > 0) {
+                            out += buildHtml(item.children);
+                        }
+                    } else {
+                        const isReceipt = item.name.includes('AUDIT_RECEIPT') || item.name.includes('proposal');
+                        out += `<div class="tree-file ${isReceipt ? 'tree-receipt' : ''}">📄 ${item.name} <span style="font-size:10px; color:#6b7280;">(${formatBytes(item.sizeBytes)})</span></div>`;
+                    }
+                });
+                out += '</div>';
+                return out;
+            }
+
+            container.innerHTML = buildHtml(tree);
+        }
+
+        // Helpers
+        function openWhatsAppModal() {
+            openModal('modalWhatsApp');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function formatBytes(bytes) {
+            if (!bytes || bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        async function launchAutomator() {
+            try {
+                alert('Launching WhatsApp Web Automated Engine...\n\nPlease link your WhatsApp (+91 9329718002) in the opened browser window once.\n\nThe session is saved permanently on your PC, and incoming files from Branch Officers will be captured and staged automatically.');
+                const res = await fetch('/api/whatsapp/launch_automator', { method: 'POST' });
+                const data = await res.json();
+                console.log(data);
+            } catch (err) {
+                alert('Error launching automator: ' + err.message);
+            }
+        }
+    </script>
+
+    <!-- ================================================================= -->
+    <!-- MICROSOFT POWER AUTOMATE & OCR STUDIO MODAL -->
+    <!-- ================================================================= -->
+    <div class="modal-overlay" id="modalPowerAutomate" onclick="if(event.target === this) closeModal('modalPowerAutomate')">
+        <div class="modal" style="max-width: 850px;">
+            <div class="modal-header">
+                <div class="modal-title" style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:24px;">⚡</span>
+                    <div>
+                        <div style="font-size:17px; font-weight:700; color:#fff;">Microsoft Power Automate & OCR Ingestion Studio</div>
+                        <div style="font-size:12px; color:var(--text-muted);">WhatsApp & Mail Document Pipeline with Automatic Branch/Customer Folder Creation</div>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modalPowerAutomate')">✕</button>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:20px;">
+                <!-- Pipeline Status Card -->
+                <div style="background:rgba(37,99,235,0.08); border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:16px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                        <div style="font-weight:700; font-size:14px; color:#93c5fd; display:flex; align-items:center; gap:8px;">
+                            <span style="width:8px; height:8px; border-radius:50%; background:#3b82f6; display:inline-block;"></span>
+                            Active Power Automate Webhook Endpoint
+                        </div>
+                        <span style="background:#065f46; color:#6ee7b7; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700;">OCR READY</span>
+                    </div>
+                    <div style="background:#090d16; padding:10px 14px; border-radius:8px; border:1px solid var(--border); font-family:monospace; font-size:12px; color:#60a5fa; display:flex; justify-content:space-between; align-items:center;">
+                        <span id="paWebhookDisplay">http://localhost:8080/api/power-automate/webhook</span>
+                        <button class="btn" style="padding:4px 10px; font-size:11px;" onclick="navigator.clipboard.writeText(document.getElementById('paWebhookDisplay').innerText); alert('Webhook URL copied!');">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Folder Structure Explainer -->
+                <div style="background:#090d16; border:1px solid var(--border); border-radius:12px; padding:16px;">
+                    <div style="font-weight:700; font-size:13px; color:#fbbf24; margin-bottom:8px;">📂 Automatic Scheme-wise & Branch-wise Folder Structure:</div>
+                    <div style="font-family:monospace; font-size:12px; color:#d1d5db; line-height:1.6; background:#111827; padding:12px; border-radius:8px; border:1px solid rgba(55,65,81,0.5);">
+                        MASTER_VAULT/DATA/<span style="color:#a78bfa;">&lt;BRANCH&gt;</span>/Retail_Lending/<span style="color:#60a5fa;">&lt;SCHEME&gt;</span>/&lt;OFFICER&gt;/<span style="color:#34d399;">&lt;CUSTOMER_NAME&gt;_DOCUMENTS</span>/<br>
+                        &nbsp;&nbsp;├── 2026-09-13_22-56-10_<span style="color:#fbbf24;">DEALER_QUOTATION</span>_Hyundai_Creta.pdf<br>
+                        &nbsp;&nbsp;├── 2026-09-13_22-56-10_<span style="color:#fbbf24;">DRIVING_LICENSE</span>_DL_Copy.pdf<br>
+                        &nbsp;&nbsp;├── 2026-09-13_22-56-10_<span style="color:#fbbf24;">PAN_CARD</span>_PAN_Card.pdf<br>
+                        &nbsp;&nbsp;└── <span style="color:#93c5fd;">OCR_EXTRACTION_MANIFEST_2026-09-13_22-56-10.json</span>
+                    </div>
+                </div>
+
+                <!-- Integration Files & Templates -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                    <div style="background:var(--surface-elevated); border:1px solid var(--border); border-radius:10px; padding:14px;">
+                        <div style="font-weight:700; font-size:13px; color:#fff; margin-bottom:4px;">☁️ Power Automate Cloud Flow</div>
+                        <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">Importable flow for Microsoft 365 / Office 365 cloud environment.</div>
+                        <a href="/api/power-automate/flow-template" download="Bank_Loan_Appraisal_WhatsApp_OCR_Flow.json" class="btn btn-primary" style="font-size:11px; padding:6px 12px; text-decoration:none;">
+                            📥 Download Flow Template (JSON)
+                        </a>
+                    </div>
+                    <div style="background:var(--surface-elevated); border:1px solid var(--border); border-radius:10px; padding:14px;">
+                        <div style="font-weight:700; font-size:13px; color:#fff; margin-bottom:4px;">💻 Power Automate Desktop (PAD)</div>
+                        <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">Free Windows 10/11 app script to monitor local WhatsApp Desktop.</div>
+                        <button class="btn" style="font-size:11px; padding:6px 12px;" onclick="copyPadScript()">
+                            📋 Copy Desktop Script
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Roadmap Notice -->
+                <div style="border-top:1px solid var(--border); padding-top:14px; font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b>Pipeline Roadmap:</b> 1. WhatsApp & PAD (Active) ➔ 2. Gmail Connector ➔ 3. Bank Official Mail (Pending IT approval)
+                    </div>
+                    <button class="btn" onclick="closeModal('modalPowerAutomate')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+        function openPowerAutomateModal() {
+            document.getElementById('paWebhookDisplay').innerText = window.location.origin + '/api/power-automate/webhook';
+            openModal('modalPowerAutomate');
+        }
+
+        async function copyPadScript() {
+            try {
+                const res = await fetch('/api/power-automate/desktop-script');
+                const text = await res.text();
+                await navigator.clipboard.writeText(text);
+                alert('✓ Power Automate Desktop Script copied to clipboard!\n\nYou can now open Power Automate Desktop on Windows and paste this script.');
+            } catch (e) {
+                alert('Error fetching script: ' + e.message);
+            }
+        }
+
+</script>
+</body>
+</html>

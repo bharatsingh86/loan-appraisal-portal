@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Binaries & Large Tools
+cloudflared.exe
+*.zip
+
+# Logs & Temporary files
+*_log.txt
+*.log
+scratch/
+temp_*
+dumped_cookies.db
+.whatsapp_session/
+
+# Sensitive files
+.env
+service_account.json
+
+# OS files
+.DS_Store
+Thumbs.db

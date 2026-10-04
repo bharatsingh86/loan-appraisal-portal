@@ -1,0 +1,41 @@
+कृषि प्र भाग , प्र धान कार्ाालर्
+ प्ल
+ाट सं .4, सेक्टर 10, द्व ारका , नई षिल्ली - 110075
+AGRICULTURE DIVISION, HEAD OFFICE,
+PLOT NO.4, SECTOR-10, DWARKA, NEW DELHI-110075
+Page 1 of 1
+Agriculture Division Cir. No. 14/2026:
+CHECK ON HACLHM MENU IN CBS FOR KCC, KSY AND SHG SCHEMES
+“Confidential-strictly for internal circulation only”
+Date: 04.02.2026
+TO ALL OFFICES
+AGRICULTURE DIVISION CIRCULAR NO.14/2026
+CHECK ON HACLHM MENU IN CBS FOR KCC, KSY AND SHG SCHEMES
+Master Circulars on Kisan Credit Card (KCC) Scheme and PNB Samooh Plus Scheme
+for Financing Self Help Groups (SHGs) have been issued vide Agriculture Division
+Circular No. 36/2025 dated 04-04-2025 and Agriculture Division Circular No. 95/2025
+dated 11-09-2025 respectively. Detailed guidelines on Kisan Samriddhi Yojana (KSY)
+were issued vide Agriculture Division Circular No. 108/2024 dated 03-08-2024 and
+subsequent circulars issued from time to time.
+Further, guidelines on review and renewal of KCC, KSY and SHG accounts are already
+conveyed vide Agriculture Division Circular No.90/2025 dated 09-09-2025 and CRMD
+Division Circular No.30/2023 dated 04-07-2023 and subsequent circulars issued from
+time to time.
+In terms of the above-mentioned Circulars “Renewal process of Borrower Accounts
+(Exposure up to Rs. 25.00 Crore) through PNB LenS under the above-mentioned
+schemes is Mandatory and Marking of Renewal in CBS will be allowed through PNB
+LenS. CBS will not allow marking of RENEW option under menu HACLHM for Borrower
+Accounts having Exposure up to Rs. 25.00 Crore.”
+In order to comply with the bank guidelines, a system check has been implemented in
+CBS, HACLHM menu for KCC, KSY and SHG accounts to encourage review and
+renewal through PNB LenS only.
+Further, for handling exceptions a menu RENRELAX has been made available in CBS.
+All other guidelines shall remain unchanged.
+All field functionaries are advised to ensure meticulous compliance of the guidelines.
+GENERAL MANAGER
+(SHYAM SUNDER SINGH)
+5149609
+15-09-2026 01:59
+
+-- 1 of 1 --
+
