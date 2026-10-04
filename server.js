@@ -167,7 +167,7 @@ function getVaultTree(dir = gateway.DATA_DIR) {
     });
 }
 
-const server = http.createServer(async (req, res) => {
+async function appHandler(req, res) {
     const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
     const pathname = parsedUrl.pathname;
     const method = req.method;
@@ -738,6 +738,8 @@ process.on('unhandledRejection', (reason) => {
     console.error('Unhandled promise rejection caught safely:', reason);
 });
 
+const server = http.createServer(appHandler);
+
 if (!process.env.VERCEL) {
     server.listen(PORT, HOST, () => {
         console.log(`=======================================================`);
@@ -751,4 +753,4 @@ if (!process.env.VERCEL) {
     });
 }
 
-module.exports = server;
+module.exports = appHandler;
