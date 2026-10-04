@@ -169,22 +169,35 @@ function getVaultTree(dir = gateway.DATA_DIR) {
 
 async function appHandler(req, res) {
     // Robust path & query extraction supporting both Local & Vercel serverless environments
-    const effectivePath = req.headers['x-matched-path'] || req.headers['x-forwarded-uri'] || req.url;
-    const parsedEffective = new URL(effectivePath, `http://${req.headers.host || 'localhost:8080'}`);
     const parsedReq = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
-
-    let pathname = parsedEffective.pathname;
-    if (pathname === '/api/index' || pathname === '/api/index.js' || pathname === '/api') {
+    let rawPath = parsedReq.searchParams.get('__path') || req.headers['x-matched-path'] || req.headers['x-forwarded-uri'] || parsedReq.pathname;
+    
+    // If rawPath is '/api/index' or '/api/index.js' or '/api', fallback to x-matched-path or req.url
+    if (rawPath === '/api/index' || rawPath === '/api/index.js' || rawPath === '/api') {
         if (req.headers['x-matched-path']) {
-            pathname = new URL(req.headers['x-matched-path'], `http://${req.headers.host || 'localhost:8080'}`).pathname;
+            rawPath = req.headers['x-matched-path'];
         }
     }
 
-    const method = req.method;
+    let pathname = rawPath.split('?')[0];
+    if (!pathname.startsWith('/')) pathname = '/' + pathname;
+    if (pathname.length > 1 && pathname.endsWith('/')) pathname = pathname.slice(0, -1);
+
+    let innerQuery = {};
+    if (rawPath.includes('?')) {
+        try {
+            const sub = new URL(rawPath, 'http://localhost');
+            innerQuery = Object.fromEntries(sub.searchParams.entries());
+        } catch (e) {}
+    }
+
     const queryParams = {
         ...Object.fromEntries(parsedReq.searchParams.entries()),
-        ...Object.fromEntries(parsedEffective.searchParams.entries())
+        ...innerQuery
     };
+    delete queryParams.__path;
+
+    const method = req.method;
 
     // CORS preflight
     if (method === 'OPTIONS') {

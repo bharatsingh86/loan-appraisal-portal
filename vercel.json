@@ -1,9 +1,53 @@
 {
   "version": 2,
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
+      "source": "/",
+      "destination": "/pnb_portal.html"
+    },
+    {
+      "source": "/portal",
+      "destination": "/pnb_portal.html"
+    },
+    {
+      "source": "/appraisal",
+      "destination": "/appraisal_desk.html"
+    },
+    {
+      "source": "/officer-drop",
+      "destination": "/officer_drop.html"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js?__path=/api/$1"
     }
   ]
 }
