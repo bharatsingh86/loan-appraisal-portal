@@ -158,7 +158,7 @@ function getCustomers(branchName, segment) {
     // Fallback to vault registry for cloud / Vercel execution
     if (customers.length === 0) {
         const reg = getVaultRegistry();
-        const bData = reg.branches && (reg.branches[branchName.trim()] || reg.branches[branchName]);
+        const bData = findBranchInRegistry(reg, branchName);
         if (bData) {
             let canonSeg = '3. Retail';
             if (segment.includes('Agri')) canonSeg = '1. Agri';
@@ -175,6 +175,36 @@ function getCustomers(branchName, segment) {
     }
 
     return customers;
+}
+
+function findBranchInRegistry(reg, branchName) {
+    if (!reg || !reg.branches || !branchName) return null;
+    const trimmed = branchName.trim();
+    if (reg.branches[trimmed]) return reg.branches[trimmed];
+    if (reg.branches[branchName]) return reg.branches[branchName];
+
+    const norm = branchName.replace(/[\s_\-]+/g, '').toLowerCase();
+    for (const [k, v] of Object.entries(reg.branches)) {
+        if (k.replace(/[\s_\-]+/g, '').toLowerCase() === norm) {
+            return v;
+        }
+    }
+    return null;
+}
+
+function findCustomerInBranch(segObj, customerName) {
+    if (!segObj || !customerName) return null;
+    const trimmed = customerName.trim();
+    if (segObj[trimmed]) return segObj[trimmed];
+    if (segObj[customerName]) return segObj[customerName];
+
+    const norm = customerName.replace(/[\s_\-]+/g, '').toLowerCase();
+    for (const [k, v] of Object.entries(segObj)) {
+        if (k.replace(/[\s_\-]+/g, '').toLowerCase() === norm) {
+            return v;
+        }
+    }
+    return null;
 }
 
 /**
@@ -216,14 +246,14 @@ function getCustomerFiles(branchName, segment, customerName) {
 
     // Fallback to vault registry for cloud / Vercel execution
     const reg = getVaultRegistry();
-    const bData = reg.branches && (reg.branches[branchName.trim()] || reg.branches[branchName]);
+    const bData = findBranchInRegistry(reg, branchName);
     if (bData) {
         let canonSeg = '3. Retail';
         if (segment.includes('Agri')) canonSeg = '1. Agri';
         else if (segment.includes('MSME')) canonSeg = '2. MSME';
         else if (segment.includes('Retail')) canonSeg = '3. Retail';
 
-        const custObj = bData[canonSeg] && (bData[canonSeg][customerName.trim()] || bData[canonSeg][customerName]);
+        const custObj = findCustomerInBranch(bData[canonSeg], customerName);
         if (custObj && custObj.files) {
             return custObj.files;
         }

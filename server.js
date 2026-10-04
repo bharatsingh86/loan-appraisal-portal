@@ -168,10 +168,23 @@ function getVaultTree(dir = gateway.DATA_DIR) {
 }
 
 async function appHandler(req, res) {
-    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
-    const pathname = parsedUrl.pathname;
+    // Robust path & query extraction supporting both Local & Vercel serverless environments
+    const effectivePath = req.headers['x-matched-path'] || req.headers['x-forwarded-uri'] || req.url;
+    const parsedEffective = new URL(effectivePath, `http://${req.headers.host || 'localhost:8080'}`);
+    const parsedReq = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+
+    let pathname = parsedEffective.pathname;
+    if (pathname === '/api/index' || pathname === '/api/index.js' || pathname === '/api') {
+        if (req.headers['x-matched-path']) {
+            pathname = new URL(req.headers['x-matched-path'], `http://${req.headers.host || 'localhost:8080'}`).pathname;
+        }
+    }
+
     const method = req.method;
-    const queryParams = Object.fromEntries(parsedUrl.searchParams.entries());
+    const queryParams = {
+        ...Object.fromEntries(parsedReq.searchParams.entries()),
+        ...Object.fromEntries(parsedEffective.searchParams.entries())
+    };
 
     // CORS preflight
     if (method === 'OPTIONS') {
@@ -756,7 +769,13 @@ async function appHandler(req, res) {
         }
 
         // Fallback 404
-        sendJson(res, 404, { error: 'Endpoint not found' });
+        sendJson(res, 404, {
+            error: 'Endpoint not found',
+            url: req.url,
+            pathname: pathname,
+            matchedPath: req.headers['x-matched-path'],
+            forwardedUri: req.headers['x-forwarded-uri']
+        });
     } catch (err) {
         console.error('Server error:', err);
         sendJson(res, 500, { error: err.message || 'Internal Server Error' });

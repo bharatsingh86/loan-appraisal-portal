@@ -77,8 +77,26 @@ async function runUniversalSync() {
         console.error('❌ GitHub push failed:', err.stdout || err.message);
     }
 
-    // STEP 4: Vercel & PWA Application Verification
-    console.log('📱 [Step 4/4] Vercel & Mobile Application Status');
+    // STEP 4: Trigger Instant Vercel Cloud Redeployment via Deploy Hook (if configured)
+    console.log('⚡ [Step 4/5] Triggering Instant Vercel Cloud Redeployment...');
+    const hookFile = path.join(BASE_DIR, 'vercel_hook.txt');
+    let hookUrl = process.env.VERCEL_DEPLOY_HOOK || '';
+    if (!hookUrl && fs.existsSync(hookFile)) {
+        hookUrl = fs.readFileSync(hookFile, 'utf8').trim();
+    }
+    if (hookUrl && hookUrl.startsWith('http')) {
+        try {
+            await triggerVercelDeployHook(hookUrl);
+            console.log('✅ Vercel Deploy Hook successfully triggered! Cloud redeployment started instantly.\n');
+        } catch (err) {
+            console.warn('⚠️ Deploy hook trigger notice:', err.message);
+        }
+    } else {
+        console.log('ℹ️ Vercel auto-deploys via GitHub commit. (Tip: Paste Deploy Hook in vercel_hook.txt for instant zero-wait builds)\n');
+    }
+
+    // STEP 5: Vercel & PWA Application Verification
+    console.log('📱 [Step 5/5] Vercel & Mobile Application Status');
     console.log('   - Production URL: https://loan-appraisal-portal.vercel.app');
     console.log('   - Web Portal & Mobile App: Automatically updated via latest GitHub commit.');
     console.log('   - Customer Loan Chats (000-CHAT_HISTORY): Fully accessible & searchable in App.');
@@ -87,6 +105,28 @@ async function runUniversalSync() {
     console.log('================================================================');
     console.log('🎉 ALL SYSTEMS FULLY SYNCHRONIZED & OPERATIONAL!');
     console.log('================================================================');
+}
+
+function triggerVercelDeployHook(hookUrl) {
+    return new Promise((resolve, reject) => {
+        const https = require('https');
+        const u = new URL(hookUrl);
+        const req = https.request({
+            hostname: u.hostname,
+            path: u.pathname + u.search,
+            method: 'POST',
+            headers: { 'Content-Length': '0' }
+        }, res => {
+            let data = '';
+            res.on('data', c => data += c);
+            res.on('end', () => {
+                if (res.statusCode >= 200 && res.statusCode < 300) resolve(data);
+                else reject(new Error(`Status ${res.statusCode}: ${data}`));
+            });
+        });
+        req.on('error', reject);
+        req.end();
+    });
 }
 
 if (require.main === module) {
