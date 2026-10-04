@@ -738,15 +738,17 @@ process.on('unhandledRejection', (reason) => {
     console.error('Unhandled promise rejection caught safely:', reason);
 });
 
-server.listen(PORT, HOST, () => {
-    console.log(`=======================================================`);
-    console.log(` Bank Loan Appraisal & WhatsApp Hub`);
-    console.log(` Mode: MULTI-USER HIGH-CONCURRENCY ENGINE (v2.4)`);
-    console.log(` Target Active WhatsApp: +91 9329718002`);
-    console.log(` Local Underwriter Desk: http://localhost:${PORT}`);
-    console.log(` Field Officer Drop:     http://localhost:${PORT}/officer-drop`);
-    console.log(` Workspace Directory:    ${__dirname}`);
-    console.log(`=======================================================`);
-});
+if (!process.env.VERCEL) {
+    server.listen(PORT, HOST, () => {
+        console.log(`=======================================================`);
+        console.log(` Bank Loan Appraisal & WhatsApp Hub`);
+        console.log(` Mode: MULTI-USER HIGH-CONCURRENCY ENGINE (v2.4)`);
+        console.log(` Target Active WhatsApp: +91 9329718002`);
+        console.log(` Local Underwriter Desk: http://localhost:${PORT}`);
+        console.log(` Field Officer Drop:     http://localhost:${PORT}/officer-drop`);
+        console.log(` Workspace Directory:    ${__dirname}`);
+        console.log(`=======================================================`);
+    });
+}
 
 module.exports = server;
