@@ -195,6 +195,18 @@ async function appHandler(req, res) {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return fs.createReadStream(path.join(__dirname, 'manifest.json')).pipe(res);
         }
+        if (pathname === '/sw.js') {
+            res.writeHead(200, { 'Content-Type': 'application/javascript; charset=utf-8' });
+            return fs.createReadStream(path.join(__dirname, 'sw.js')).pipe(res);
+        }
+        if (pathname === '/icon-192.png') {
+            res.writeHead(200, { 'Content-Type': 'image/png' });
+            return fs.createReadStream(path.join(__dirname, 'icon-192.png')).pipe(res);
+        }
+        if (pathname === '/icon-512.png') {
+            res.writeHead(200, { 'Content-Type': 'image/png' });
+            return fs.createReadStream(path.join(__dirname, 'icon-512.png')).pipe(res);
+        }
         if (pathname === '/api/public-url' && method === 'GET') {
             const urlFile = path.join(__dirname, 'public_url.txt');
             const pubUrl = fs.existsSync(urlFile) ? fs.readFileSync(urlFile, 'utf8').trim() : null;
