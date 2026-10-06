@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T08:13:19.446Z",
+  "generatedAt": "2026-10-06T03:40:57.367Z",
   "branches": {
     "943600-CHHINDWARA  VIP ROAD (MP)": {
       "1. Agri": {
@@ -1663,7 +1663,50 @@
         }
       },
       "2. MSME": {},
-      "3. Retail": {}
+      "3. Retail": {
+        "VINOD GIDWANI - HOUSE LOAN": {
+          "displayName": "VINOD GIDWANI - HOUSE LOAN",
+          "folderName": "VINOD GIDWANI - HOUSE LOAN",
+          "filesCount": 7,
+          "files": [
+            {
+              "name": "Fw__DOCUMENTS_TO_CHECK_THE_ELIGIBILTY_FOR_HOUSING_LOAN.zip",
+              "sizeBytes": 12061266,
+              "modifiedAt": "2026-10-05T07:03:57.841Z"
+            },
+            {
+              "name": "CIBIL VINOD GINDWANI HL.pdf",
+              "sizeBytes": 28125,
+              "modifiedAt": "2026-10-05T01:32:56.000Z"
+            },
+            {
+              "name": "vinod gindwani_0001.pdf",
+              "sizeBytes": 4774599,
+              "modifiedAt": "2026-10-05T01:32:56.000Z"
+            },
+            {
+              "name": "yash gidwani_0001.pdf",
+              "sizeBytes": 7258150,
+              "modifiedAt": "2026-10-05T01:32:56.000Z"
+            },
+            {
+              "name": "CIBIL VINOD GINDWANI HL_text.txt",
+              "sizeBytes": 4001,
+              "modifiedAt": "2026-10-05T07:10:34.945Z"
+            },
+            {
+              "name": "vinod gindwani_0001_text.txt",
+              "sizeBytes": 261,
+              "modifiedAt": "2026-10-05T07:10:35.024Z"
+            },
+            {
+              "name": "yash gidwani_0001_text.txt",
+              "sizeBytes": 369,
+              "modifiedAt": "2026-10-05T07:10:35.094Z"
+            }
+          ]
+        }
+      }
     },
     "624000-ANUPPUR MP": {
       "1. Agri": {},
@@ -6307,6 +6350,50 @@
       ]
     },
     {
+      "branch": "641900-WARASEONI (MP)",
+      "segment": "3. Retail",
+      "customerName": "VINOD GIDWANI - HOUSE LOAN",
+      "displayName": "VINOD GIDWANI - HOUSE LOAN",
+      "filesCount": 7,
+      "files": [
+        {
+          "name": "Fw__DOCUMENTS_TO_CHECK_THE_ELIGIBILTY_FOR_HOUSING_LOAN.zip",
+          "sizeBytes": 12061266,
+          "modifiedAt": "2026-10-05T07:03:57.841Z"
+        },
+        {
+          "name": "CIBIL VINOD GINDWANI HL.pdf",
+          "sizeBytes": 28125,
+          "modifiedAt": "2026-10-05T01:32:56.000Z"
+        },
+        {
+          "name": "vinod gindwani_0001.pdf",
+          "sizeBytes": 4774599,
+          "modifiedAt": "2026-10-05T01:32:56.000Z"
+        },
+        {
+          "name": "yash gidwani_0001.pdf",
+          "sizeBytes": 7258150,
+          "modifiedAt": "2026-10-05T01:32:56.000Z"
+        },
+        {
+          "name": "CIBIL VINOD GINDWANI HL_text.txt",
+          "sizeBytes": 4001,
+          "modifiedAt": "2026-10-05T07:10:34.945Z"
+        },
+        {
+          "name": "vinod gindwani_0001_text.txt",
+          "sizeBytes": 261,
+          "modifiedAt": "2026-10-05T07:10:35.024Z"
+        },
+        {
+          "name": "yash gidwani_0001_text.txt",
+          "sizeBytes": 369,
+          "modifiedAt": "2026-10-05T07:10:35.094Z"
+        }
+      ]
+    },
+    {
       "branch": "624500-AMLA (M.P.)",
       "segment": "1. Agri",
       "customerName": "SANDEEP SINGH BAGHEL - DAIRY DEVELOPMENT",
@@ -9126,6 +9213,36 @@
   ],
   "chatHistoryDocx": [
     {
+      "name": "2026-10-06_09-10-31_SUMIT_KUMAR_STAFF_HL_MORATORIUM_EXTENSION_PROPOSAL_CHAT.docx",
+      "sizeBytes": 21391,
+      "modifiedAt": "2026-10-06T03:40:31.385Z",
+      "displayTime": "6/10/2026, 9:10:31 am"
+    },
+    {
+      "name": "2026-10-05_15-37-18_F0CU_NILESH_KANKARIYA_MYPROPERTY_LOAN_ASSESSMENT_CHAT.docx",
+      "sizeBytes": 9849,
+      "modifiedAt": "2026-10-05T10:07:18.961Z",
+      "displayTime": "5/10/2026, 3:37:18 pm"
+    },
+    {
+      "name": "2026-10-05_14-42-00_FERT_GROSS_REGULAR_INCOME_BIFURCATION_AND_DEVIATION_ANA_CHAT.docx",
+      "sizeBytes": 9846,
+      "modifiedAt": "2026-10-05T09:12:00.173Z",
+      "displayTime": "5/10/2026, 2:42:00 pm"
+    },
+    {
+      "name": "2026-10-05_13-50-42_YRUB_GMI_60_PERCENT_DEDUCTION_HOUSE_LOAN_ASSESSMENT_VIN_CHAT.docx",
+      "sizeBytes": 9812,
+      "modifiedAt": "2026-10-05T08:20:42.473Z",
+      "displayTime": "5/10/2026, 1:50:42 pm"
+    },
+    {
+      "name": "2026-10-05_12-50-35_6B65_VINOD_GIDWANI_HOUSE_LOAN_APPRAISAL_AND_DEFECT_SCRU_CHAT.docx",
+      "sizeBytes": 9672,
+      "modifiedAt": "2026-10-05T07:20:35.241Z",
+      "displayTime": "5/10/2026, 12:50:35 pm"
+    },
+    {
       "name": "2026-10-04_13-14-39_F0PR_MARGIN_NORMS_QUERY_CHAT.docx",
       "sizeBytes": 10536,
       "modifiedAt": "2026-10-04T07:44:39.519Z",
@@ -9684,6 +9801,6 @@
       "displayTime": "17/9/2026, 11:01:08 pm"
     }
   ],
-  "totalCustomers": 44,
-  "totalFiles": 802
+  "totalCustomers": 45,
+  "totalFiles": 809
 }

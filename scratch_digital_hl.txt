@@ -1,0 +1,506 @@
+LKMC | PNB Corporate Office | New Delhi
+December-2023
+
+-- 1 of 45 --
+
+Dear PNBians,
+In recent times, the world has witnessed a remarkable shift towards
+digitalization, and the financial sector is no exception. Our Bank has
+always been at the forefront of embracing technology to enhance our
+services and provide the best possible experience to our esteemed
+customers. The success of our digital loan portfolio has been a
+testament to our commitment to staying ahead of the curve and
+catering to the evolving needs of our customers. Today marks a
+momentous occasion as we gather here to celebrate the launch of our
+latest ground-breaking innovation - the Digital Home Loan.
+I am deeply honoured and excited to stand before you to introduce this
+revolutionary product that is set to reshape the landscape of home financing.
+Today, as we introduce the Digital Home Loan, we take another giant leap towards a future where
+convenience, efficiency and accessibility reign supreme. Gone are the days of lengthy paperwork,
+countless visits to the bank and prolonged waiting times. With our Digital Home Loan, we are
+empowering our customers to apply for a home loan from the comfort of their homes at any time that
+suits them best.
+The underwriting process has been completely revolutionized through the adoption of advanced
+algorithms and data analytics. This enables us to swiftly analyse various data points & credit indicators,
+and to make loan approval process rapid & accurate. Our commitment to maintain a high-quality
+portfolio with minimal risk remains unwavering, as we continue to prioritize the financial well-being of
+our customers.
+At the heart of this product is our dedication to providing a seamless and customer-centric experience.
+Through our user-friendly digital platform, customers can effortlessly navigate the application process.
+The journey to homeownership will be smoother, more transparent and ultimately more rewarding.
+As we move forward, I want to extend my gratitude to the exceptional team of professionals who have
+worked tirelessly to bring this product to fruition. Their unwavering commitment and relentless pursuit of
+excellence have made this day possible.
+In conclusion, the launch of the Digital Home Loan is not just a momentous occasion for our Bank, but
+for each one of us who has been a part of this journey. Together, we stand at the cusp of a new era of
+home financing, and I am confident that with our dedication, innovation and customer-centric approach,
+we will continue to lead the way in the financial industry.
+Thank you all for being here today to share in this exciting moment. Let us embrace the digital future
+with open arms and make homeownership dreams come true for countless families.
+Thank you.
+My Best Wishes,
+Atul Kumar Goyal
+
+-- 2 of 45 --
+
+39	03. Role of branches
+01	01. Digital Home Loan
+(Particulars)
+Process Flow	02.
+The information in this booklet is for the guidance of staff
+working in field and is not a substitute of any Bank Circular/
+guidelines. The contents of the booklet are subject to change
+from time to time and therefore, in such cases, Bank
+circular/latest guidelines shall prevail.
+Borrower 04
+21
+PNB Loan Point (PLP) 24
+Branch (for loans sanctioned from PLP) 37
+a.
+b. Branch
+c.
+d.
+
+-- 3 of 45 --
+
+2 Digital Approval, subject to
+due diligence of property and
+its verification
+Mode of finance
+Purpose includes:
+of built
+of
+❖ construction of house/flat;
+❖ purchase
+house/flat.
+❖ purchase
+construction
+from Housing
+under
+house/flat
+Boards/
+Authorities/
+Societies/
+Development
+Co-operative
+Private Builders
+❖ carrying out Additions to
+the house/flat.
+❖ carrying out repairs/
+renovation / alterations
+of Home Loan
+from other
+institutions/
+❖ takeover
+accounts
+financial
+banks.
+Purpose
+1
+1
+
+-- 4 of 45 --
+
+4
+3 Eligible Customers ❖ Individuals or group of
+individuals (co-borrowers)
+who are having an assured
+source of regular income viz.
+Salaried
+Pensioners,
+employees,
+Professionals,
+Self Employed persons,
+businessmen, farmers etc.
+❖ If Borrower
+existing customer,
+he/she can avail this
+is not our
+then
+offer
+with the help of video KYC
+and account aggregator
+network.
+Loan Amount ❖ Need based loan depending
+upon the project cost and
+repaying capacity of the
+borrower.
+❖ For repairs / renovation /
+alterations: Maximum Rs.50
+lac
+❖ Loan amount to be arrived
+on the basis of the cost of
+unit i.e. Realizable Value or
+sale consideration value
+whichever is lower.
+2
+
+-- 5 of 45 --
+
+5
+Processing Fees NIL
+3
+Rate of Interest
+Margin Home Loan Upto
+Rs. 30 lac
+20%
+15% (Higher Rate of Interest on Card
+Rate will be charged in such cases.
+Borrower be made aware about this
+before sanction of loan.
+Home Loan above
+Rs.30 lac and upto
+Rs.75 lac
+20%
+Home Loan above
+Rs.75 lac
+25%
+Delegation power
+Ranging from
+RLLR+BSP-0.75% to
+RLLR+BSP+0.85%
+Digital Approval
+(Subject to due diligence and
+verification of property
+6
+7
+8
+
+-- 6 of 45 --
+
+1
+Existing customer will select CIF ID/PAN No/Account No/ Aadhaar No. from drop
+down menu and shall submit the document ID number and validate it using the “Get
+OTP” button. New to bank customer will enter the Aadhaar No only and validate it
+using Aadhaar OTP.
+URL: https://digihome.pnb.co.in/pnb/hl/
+2 Customer to enter the OTP and select check box for acceptance of privacy policy,
+terms and conditions and guidelines and press submit.
+4
+
+-- 7 of 45 --
+
+3 Customer to complete all details of left pane to complete journey. First profile detail
+is to be submitted
+4 Name, PAN No and Email ID will auto populate for ETB customer if available in CBS. For
+New to Bank customer, Name will be auto populated from Aadhaar. PAN No and required
+loan amount is to be entered.
+5
+
+-- 8 of 45 --
+
+5 OTP will be received on email ID entered and same needs to be verified by clicking
+on “Verify” button
+6 Customer will select employment type from drop down and select whether EPFO
+credentials to be entered (if they are having EPFO portal login ID and password)
+6
+
+-- 9 of 45 --
+
+7
+Branch selection will be done by customer. Nearest branch will be auto populated
+based on address fetched from Aadhaar. Borrower can change branch as per PIN
+code of current address or permanent address and then proceed.
+8 Borrower will accept FATCA Declaration, Bureau and other consents after reading
+the declaration statement.
+7
+
+-- 10 of 45 --
+
+9
+After clicking on “Next” button, customer has to accept Bureau and other consents
+and then proceed.
+10 Profile details are now completed and borrower will click on Income tax return
+details to fill in ITR details.
+8
+
+-- 11 of 45 --
+
+11 Borrower will enter his/her Income Tax e-filing portal’s login password and then
+proceed. System shall take 2 to 5 minutes to process the ITR.
+12 After fetching income tax details of two financial years, borrower will now proceed
+for fetching of bank statement through Account Aggregator.
+9
+
+-- 12 of 45 --
+
+13 Borrower will select the account aggregator available in dropdown viz. Anumati,
+OneMoney, etc. and enter mobile no. and the submit the details.
+Portal in turn will redirect the customer to Account Aggregator Page. Customer to click
+“Proceed” button as shown below:
+10
+
+-- 13 of 45 --
+
+14 Borrower will enter OTP received from account aggregator and click on “Verify”
+Button
+15
+Borrower shall select the Bank account where salary account is maintained in case of
+salaried customer and select the saving account where minimum 60% of income is
+routed through from list of banks.
+11
+
+-- 14 of 45 --
+
+16
+Account aggregator will in turn will display all accounts linked with mobile number.
+Borrower to select relevant salary/income credit account. Multiple accounts can
+be selected. OTP confirmation to be given
+12
+
+-- 15 of 45 --
+
+17
+After fetching account statement, statement analyser will run in background. In
+case redirection to account aggregator failed in step 13, borrower to hit ‘Click here
+to redirect’. On successful redirection, borrower to wait for 4-5 minute and hit on
+‘Click here’ to fetch account details.
+18
+After the account is fetched and analysed details (Updated date, Account holder
+name, No. of transactions found and account since) will be displayed. Borrower to
+enter Proceed.
+13
+
+-- 16 of 45 --
+
+19 Now personal information details to be entered. Available data from CBS/Aadhaar
+will be auto populated, rest will have to be entered by the borrower
+14
+
+-- 17 of 45 --
+
+20
+Existing loans of customer will now be displayed from CICs, Borrower can also add
+deduction manually (if any) which is not fetched from CIC. , then click the “Proceed”
+button
+Borrower will then choose option to add co-applicant. When ‘Yes’ is selected, Steps
+21 from 1-20 as shown above is to be followed for Co-Borrower also.
+15
+
+-- 18 of 45 --
+
+22
+Borrower will now enter Loan requirement details i.e. Purpose of Loan, Loan
+amount, Type of property, Tenure of loan and Moratorium period required.
+23
+Borrower will now enter details of proposed property for fresh purchase and owned
+property details in case of construction/addition/repair/renovation
+16
+
+-- 19 of 45 --
+
+24 Borrower will select property owner name and undertaking for no. of owned houses
+(For CRE purpose) and click Proceed.
+25
+Based on selections made in previous steps, Business Rule Engine (BRE) will run in
+background and Offer will be displayed to borrower along with Tenure, ROI,
+Processing fee, EMI and Maximum eligible loan amount based on the income.
+17
+
+-- 20 of 45 --
+
+26 Borrower is having option to change branch and modify loan amount, tenure and
+moratorium period in case they are wrong
+18
+
+-- 21 of 45 --
+
+27 After proceeding, borrower will have to upload property chain of documents and
+click on Proceed
+Success Message will be displayed on screen after successful submit of the application
+19
+
+-- 22 of 45 --
+
+27
+Borrower journey is completed now. Offer details and option to download offer
+letter will be available for the borrower and the digital request will now move to the
+selected Branch for further processing.
+20
+
+-- 23 of 45 --
+
+1
+Borrower to visit branch with original KYC documents, supporting relationship
+proofs (if joint borrowers is added) and property chain of documents (in case not
+uploaded earlier). Branch to login based on maker and checker credentials
+URL: https://digihome.pnb.co.in/pnbhllogin/
+21
+
+-- 24 of 45 --
+
+2 Branch dashboard will open and various tabs (Pending with Branch, Pending with
+PLP, Sanctioned, Ready to disburse, Disbursed, Hold, Rejected) will be displayed
+21
+
+-- 25 of 45 --
+
+22
+
+-- 26 of 45 --
+
+3 Branch maker user to select relevant application and click on ‘view application’
+4
+If loan proposal (including existing exposure, if any) falls above Rs 10 Lakh, branch
+can only send proposal to mapped PLP. No modifications can be done by branch. If
+exposure is below Rs 10 Lakh, proposal will be dealt by branch with same
+procedure as explained in coming steps.
+After clicking send to PLP, proposal will have to be dealt at PLP Maker user. Branch
+to send proposal to PLP along with visit report and photographs of property.
+23
+
+-- 27 of 45 --
+
+1 PLP Maker user will enter login credentials
+24
+
+-- 28 of 45 --
+
+2 PLP Maker user will click on ‘Pending with PLP’ and select relevant application
+3 PLP maker will now check ‘Mandatory parameters’ and click on ‘Proceed for
+compliance’ to enter NEC, Valuation and Visit details
+25
+
+-- 29 of 45 --
+
+26
+
+-- 30 of 45 --
+
+4 PLP Maker user will now fill Property Verification Reports and Sanction Details which
+is self-explanatory as under
+27
+
+-- 31 of 45 --
+
+28
+
+-- 32 of 45 --
+
+5 PLP Maker will now tick all confirmations after compliance
+6 Sanction details will be auto populated from Business rule engine (BRE). Details of
+charges like CERSAI charges, stamp duty charges, etc. to be entered by PLP Maker
+29
+
+-- 33 of 45 --
+
+7 After filling above details, PLP Maker will have to send the proposal to PLP Checker
+Send to PLP
+Checker
+30
+
+-- 34 of 45 --
+
+1 PLP Checker will now login with credentials
+31
+
+-- 35 of 45 --
+
+2 PLP Checker will select relevant application under ‘Pending with PLP’
+3 PLP Checker will click on ‘Proceed for compliance’
+32
+
+-- 36 of 45 --
+
+4 Based on details entered by PLP Maker, all the details viz. Property Details, Property
+Verification reports, CERSAI, Sanction Details, etc will be displayed to PLP Checker.
+33
+
+-- 37 of 45 --
+
+5 After checking all details, PLP checker will click on ‘Approve’
+For Approval
+34
+
+-- 38 of 45 --
+
+5 Application is now sanctioned, PLP Maker/Check will now check Summary,
+Parameter Analysis, Profile, Approved Loan Details, Scoring Parameter, Bank
+Statement Analysis, etc.
+Summary, Parameter Analysis, Profile,
+Approved Loan Details, Scoring Parameter,
+Bank Statement Analysis are to be checked
+from the tabs on the left side of the screen
+35
+
+-- 39 of 45 --
+
+6 PLP Maker/Checker will now download Bureau reports, ITRs, Bank statements,
+Credit appraisal memorandum (CAM) report, Offer letter, Key Fact statement,
+Agreement for Housing Loan, etc. from ‘Downloads’ tab
+36
+
+-- 40 of 45 --
+
+1 After proposal is sanctioned from PLP, proposal will automatically land to Branch
+maker/checker dashboard. Branch user to select on sanctioned application.
+Application’s status will now updated as ‘ Sanctioned by PLP’.
+2 Branch will now click on Initiate Loan account after documents are executed
+37
+
+-- 41 of 45 --
+
+1 Branch to enter documentation date, CERSAI Asset ID, confirmation of post
+sanction compliance and remarks and click on submit. Loan account will be open
+in CBS for Existing-to-Bank (ETB) customers. For New-to-Bank (NTB) customers, CIF
+creation and account opening will be carried when clicked on ‘Initiate Loan
+Account’ tab.
+Branch to also download Bureau Reports, ITRs, Bank
+Statements, Credit Appraisal Memorandum (CAM)
+report, Offer letter, Key Fact statement, Agreement
+for Housing Loan, Etc. from ‘Downloads’ tab
+38
+
+-- 42 of 45 --
+
+1. After receiving approval of digital home loan, GBB/PLP to
+scrutinize all documents including legal report, valuation, visit/
+inspection of property.
+2. Branch to ensure that joint Borrower(s)/Co- applicant (s) will
+be strictly as per Bank’s extant Home Loan product.
+3. Security Inspection/Visit.
+4. Obtention of NEC/Legal Search Report of property, to be taken
+as security from Bank’s empanelled advocate, in terms of
+Bank’s extant guidelines.
+5. Obtention of Valuation report of property from Bank’s
+empanelled valuer, in terms of Bank’s extant guidelines.
+6. Before disbursement branch has to ensure the genuineness of
+the documents.
+7. Loan documents including acceptance of sanction shall be
+executed at branch in terms of extant guidelines.
+8. Branch wherein home loan account is parked, needs to take
+print outs of e-Sanction letter, CIC report, undertaking, ITRs
+account statement, KYC Documents from the portal and these
+are to be kept on record for Audit purpose.
+39
+
+-- 43 of 45 --
+
+9. GBB to obtain Pre-Disbursement Certificate (PDC), as per the
+existing system in place before disbursement.
+10. Creations of Mortgage/CERSAI of property as per Bank’s extant
+guidelines to be done by GBBs.
+11. Disbursement, end use verification and security creation to be
+done by the branch in terms of extant guidelines.
+12. The Existing system of reporting of the loan sanctioned in the
+month through Loan sanction statement (LSS) shall continue in
+this scheme also by GBBs/PLPs.
+13. The branch maintaining the loan account of the customer will
+be responsible for follow up and recovery in irregular and NPA
+accounts.
+14. Post disbursement follow-up.
+15. All other existing extant guidelines of Home Loan to be adhered
+with in this scheme also.
+16. GBBs/PLPs is not responsible for assessment of extant of loan
+done as per the Business Rule Engine (BRE) on account of
+income.
+40
+
+-- 44 of 45 --
+
+Scan this QR code to
+download PNB One App
+Attractive ROI starting 8.40% *
+
+-- 45 of 45 --
+

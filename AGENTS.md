@@ -55,13 +55,36 @@ Evaluate every document against the mandatory checklist of:
      - Documentation Charges: **NIL / Waived**.
      - Margin: **10% of On-Road Price** (NIL on Ex-Showroom under manufacturer tie-ups).
      - Max Tenure: **84 Months (7 Years)**; EV Green Car: **120 Months (10 Years)**.
-2. **Quantum of Finance**:
-   - Permissible Loan = Min(On-Road Price - Margin, Income-based eligibility).
-   - EMI / NMI Deduction Ratio:
-     - NMI <= ₹50,000/mo: Max 50%
-     - NMI ₹50,001 to ₹1,00,000/mo: Max 60%
-     - NMI > ₹1,00,000/mo: Max 70%
-   - Minimum Net Monthly Income (NMI) take-home: **₹25,000/month**.
+2. **Quantum of Finance & Deduction Methodology (Strictly as per PNB Circulars)**:
+   - **Mandatory Income Bifurcation (Regular vs Invariable / Variable Components)**:
+     - In Gross Total Income, ONLY regular and sustainable income components can be considered.
+     - **Invariable / Variable Components MUST be EXCLUDED**:
+       - Salaried: Exclude annual bonus, one-off overtime, arrears, medical encashments, variable incentive.
+       - Business / Self-Employed: Exclude Short-term/Long-term Capital Gains (STCG/LTCG), share trading/speculative profits, unverified private interest, one-off dividends, windfall gains.
+       - Only consider regular business operating profit (u/s 44AD or audited P&L) and regular verifiable institutional income.
+     - **Mandatory Output**: For every appraisal, generate a detailed **Income Bifurcation Table** breaking down each reported component, its nature (Regular vs Invariable), and Bank Treatment (Included vs Excluded with justification).
+   - **Gross Regular Monthly Income (GRMI) Determination**:
+     - Compute Gross Regular Annual Income -> Divide by 12 = **GRMI**.
+   - **Permissible Deduction Cap: Without Deviation vs With Deviation**:
+     - **Without Deviation (Standard Circular Slab on GRMI)**:
+       - GRMI <= ₹50,000/month: Max **50% of GRMI**
+       - GRMI ₹50,001 to ₹1,00,000/month: Max **60% of GRMI**
+       - GRMI ₹1,00,001 to ₹2,00,000/month: Max **65% of GRMI**
+       - GRMI > ₹2,00,000/month: Max **70% of GRMI**
+     - **With Deviation (Delegated Financial Powers Relaxation)**:
+       - Calculate extended deduction cap with permissible deviation (e.g. +5% or +10% deviation approved by Circle Head / Zonal Manager), e.g., 65% or 70% of GRMI, subject to maintaining minimum take-home pay and clean bureau track record.
+   - **Step-by-step Deductions & Available Permissible EMI**:
+     - Total Permissible Deductions = `(Applicable % of GRMI)`
+     - Less: **Statutory Deductions** (Income Tax, TDS, Professional Tax)
+     - Less: **Other Fixed Deductions**
+     - Less: **Existing Loan EMIs as per CIC (CIBIL/Experian/Equifax/CRIF) Reports**
+     - Equals: `Net Available EMI for Proposed Loan = Permissible Deductions - (Statutory + Existing CIC EMIs + Other Deductions)`
+     - Present both **Without Deviation** and **With Deviation** available EMI figures.
+   - **Mandatory Net Take-Home Pay Check**:
+     `Net Monthly Take-Home Pay = GRMI - Total Deductions (including Proposed EMI)`
+     Must be >= 40% of GRMI (or minimum take-home cutoff of ₹25,000/month, whichever is higher).
+   - **Permissible Loan Quantum**:
+     Permissible Loan = Present Value of Net Available EMI over proposed tenure at governing circular ROI.
 
 ---
 
