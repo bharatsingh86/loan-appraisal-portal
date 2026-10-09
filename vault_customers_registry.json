@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T17:57:08.287Z",
+  "generatedAt": "2026-10-09T03:44:38.555Z",
   "branches": {
     "943600-CHHINDWARA  VIP ROAD (MP)": {
       "1. Agri": {
@@ -2633,7 +2633,25 @@
     },
     "189310-BETUL": {
       "1. Agri": {},
-      "2. MSME": {},
+      "2. MSME": {
+        "UNIFORM WALA": {
+          "displayName": "UNIFORM WALA",
+          "folderName": "UNIFORM WALA",
+          "filesCount": 2,
+          "files": [
+            {
+              "name": "1_uniform_wala.zip",
+              "sizeBytes": 18994322,
+              "modifiedAt": "2026-10-08T12:50:55.489Z"
+            },
+            {
+              "name": "2_uniform_wala.zip",
+              "sizeBytes": 9685497,
+              "modifiedAt": "2026-10-08T12:52:29.518Z"
+            }
+          ]
+        }
+      },
       "3. Retail": {
         "SHYAM SUNDER RATHORE - HL": {
           "displayName": "SHYAM SUNDER RATHORE - HL",
@@ -4406,7 +4424,7 @@
         "sunil scooters pvt ltd": {
           "displayName": "sunil scooters pvt ltd",
           "folderName": "sunil scooters pvt ltd",
-          "filesCount": 30,
+          "filesCount": 31,
           "files": [
             {
               "name": "31_sunil.zip",
@@ -4557,6 +4575,11 @@
               "name": "9_sunil.zip",
               "sizeBytes": 20901488,
               "modifiedAt": "2026-10-07T17:47:01.439Z"
+            },
+            {
+              "name": "Sunil_Scooters_Credit_Appraisal_Podcast.mp3",
+              "sizeBytes": 5823936,
+              "modifiedAt": "2026-10-07T18:28:30.931Z"
             }
           ]
         }
@@ -7512,6 +7535,25 @@
     },
     {
       "branch": "189310-BETUL",
+      "segment": "2. MSME",
+      "customerName": "UNIFORM WALA",
+      "displayName": "UNIFORM WALA",
+      "filesCount": 2,
+      "files": [
+        {
+          "name": "1_uniform_wala.zip",
+          "sizeBytes": 18994322,
+          "modifiedAt": "2026-10-08T12:50:55.489Z"
+        },
+        {
+          "name": "2_uniform_wala.zip",
+          "sizeBytes": 9685497,
+          "modifiedAt": "2026-10-08T12:52:29.518Z"
+        }
+      ]
+    },
+    {
+      "branch": "189310-BETUL",
       "segment": "3. Retail",
       "customerName": "SHYAM SUNDER RATHORE - HL",
       "displayName": "SHYAM SUNDER RATHORE - HL",
@@ -9180,7 +9222,7 @@
       "segment": "2. MSME",
       "customerName": "sunil scooters pvt ltd",
       "displayName": "sunil scooters pvt ltd",
-      "filesCount": 30,
+      "filesCount": 31,
       "files": [
         {
           "name": "31_sunil.zip",
@@ -9331,6 +9373,11 @@
           "name": "9_sunil.zip",
           "sizeBytes": 20901488,
           "modifiedAt": "2026-10-07T17:47:01.439Z"
+        },
+        {
+          "name": "Sunil_Scooters_Credit_Appraisal_Podcast.mp3",
+          "sizeBytes": 5823936,
+          "modifiedAt": "2026-10-07T18:28:30.931Z"
         }
       ]
     },
@@ -9806,6 +9853,12 @@
     }
   ],
   "chatHistoryDocx": [
+    {
+      "name": "2026-10-09_09-14-30_OI0V_TITLE_INVESTIGATION_AND_VALUATION_OF_PROPERTY_PNB__CHAT.docx",
+      "sizeBytes": 15216,
+      "modifiedAt": "2026-10-09T03:44:30.306Z",
+      "displayTime": "9/10/2026, 9:14:30 am"
+    },
     {
       "name": "2026-10-07_23-26-57_L77Y_KGN_TRADERS_PNB_SAMPATTI_ASSESSMENT_CHAT.docx",
       "sizeBytes": 12951,
@@ -10407,6 +10460,6 @@
       "displayTime": "17/9/2026, 11:01:08 pm"
     }
   ],
-  "totalCustomers": 47,
-  "totalFiles": 865
+  "totalCustomers": 48,
+  "totalFiles": 868
 }
