@@ -4,13 +4,14 @@
   "description": "Bank Loan Appraisal Automated WhatsApp Hub",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'Build ok'"
   },
   "dependencies": {
     "@google/genai": "^2.22.0",
     "docx": "^9.7.1",
     "dotenv": "^17.4.2",
-    "pdf-parse": "^2.4.5",
-    "puppeteer-core": "^23.6.0"
+    "pdf-parse": "^2.4.5"
   }
 }

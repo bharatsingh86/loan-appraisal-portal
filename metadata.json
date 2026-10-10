@@ -1,0 +1,7 @@
+{
+  "name": "Easy_Bank_Appraisal - Autonomous Credit Portal",
+  "description": "Bank Loan Appraisal Autonomous Credit Portal & Automated WhatsApp Hub for Punjab National Bank",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -37,7 +37,7 @@ function getLocalIp() {
     return '127.0.0.1';
 }
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
 // Helper to parse JSON body
@@ -169,7 +169,7 @@ function getVaultTree(dir = gateway.DATA_DIR) {
 
 async function appHandler(req, res) {
     // Robust path & query extraction supporting both Local & Vercel serverless environments
-    const parsedReq = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+    const parsedReq = new URL(req.url, `http://${req.headers.host || `localhost:${PORT}`}`);
     let rawPath = parsedReq.searchParams.get('__path') || req.headers['x-matched-path'] || req.headers['x-forwarded-uri'] || parsedReq.pathname;
     
     // If rawPath is '/api/index' or '/api/index.js' or '/api', fallback to x-matched-path or req.url
@@ -240,9 +240,9 @@ async function appHandler(req, res) {
             const hostName = os.hostname();
             return sendJson(res, 200, {
                 publicUrl: pubUrl,
-                wifiUrl: `http://${localIp}:8080/`,
-                mDnsUrl: `http://${hostName}.local:8080/`,
-                localUrl: 'http://localhost:8080/',
+                wifiUrl: `http://${localIp}:${PORT}/`,
+                mDnsUrl: `http://${hostName}.local:${PORT}/`,
+                localUrl: `http://localhost:${PORT}/`,
                 hostname: hostName,
                 localIp: localIp
             });
