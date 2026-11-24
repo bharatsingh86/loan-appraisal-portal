@@ -395,6 +395,7 @@ async function appHandler(req, res) {
                 engine: 'Multi-User High-Concurrency Engine v2.4',
                 uptimeSeconds: Math.round(process.uptime()),
                 memoryUsageMB: Math.round(process.memoryUsage().rss / 1024 / 1024),
+                gemini: { enabled: require('./gemini_service').isGeminiEnabled(), model: require('./gemini_service').getModelName() },
                 timestamp: new Date().toISOString()
             });
         }

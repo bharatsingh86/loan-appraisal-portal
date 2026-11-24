@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const { createChatDocx } = require('./save_chat_to_docx');
+const { askGemini } = require('./gemini_service');
 
 // Load environment variables if available
 if (fs.existsSync(path.join(__dirname, '.env'))) {
@@ -190,6 +191,7 @@ async function answerUserQuery(userQuery = '') {
     let topic = 'GENERAL_BANKING_QUERY';
     let responseText = '';
     let suggestions = [];
+    let aiModel = null;
 
     // =========================================================================
     // STEP 1: Check if the query is about a specific Borrower / Customer
@@ -745,7 +747,16 @@ ${cl.schemes.map(s => `* **${s.split(':')[0]}:** ${s.split(':').slice(1).join(':
     } else {
         topic = 'CIRCULAR_SEARCH_QUERY';
         const found = searchCirculars(userQuery);
-        if (found.length > 0) {
+        const ai = await askGemini(userQuery, { circulars: found, knowledgeBase: KNOWLEDGE_BASE });
+        if (ai) {
+            topic = 'AI_CIRCULAR_QUERY';
+            responseText = ai.response;
+            suggestions = ai.suggestions;
+            aiModel = ai.model;
+        }
+        if (ai) {
+            // Gemini answered; keep its response
+        } else if (found.length > 0) {
             responseText = `# PUNJAB NATIONAL BANK - CIRCULAR SEARCH RESULTS FOR: "${userQuery}"\n\n`;
             responseText += `> 📜 **Official Circular Authority & Search Index:**\n`;
             responseText += `Bank Circulars Library me nimnlikhit **${found.length}** prasaangik circular mile hain:\n\n`;
@@ -793,6 +804,7 @@ Aapke prashna ke anusar Bank ke nirdharit circulars (RABD, MSME, HRDD, AGRI, IRM
         userQuery,
         response: responseText,
         suggestions,
+        aiModel,
         docxPath,
         docxFilename: docxPath ? path.basename(docxPath) : null,
         timestamp: new Date().toISOString()
